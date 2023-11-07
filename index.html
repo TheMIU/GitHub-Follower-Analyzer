@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>GitHub Follower Extractor</title>
+  <title>GitHub Token and Username</title>
 </head>
+
 <body>
-  <h1>GitHub Follower Extractor</h1>
-  <label for="username">Enter your GitHub username:</label>
-  <input type="text" id="username" placeholder="Enter GitHub username">
-  <button id="fetchFollowers">Fetch Followers</button>
-  <ul id="followerList"></ul>
+  <h1>Set GitHub Token and Username</h1>
+  <form id="github-form">
+    <label for="github-token">GitHub Token:</label>
+    <input type="text" id="github-token" name="github-token" required>
+    <br>
+    <label for="github-username">GitHub Username:</label>
+    <input type="text" id="github-username" name="github-username" required>
+    <br>
+    <input type="submit" value="Submit">
+  </form>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="js/script.js"></script>
-  <script src="js/jquery-3.6.1.min.js"></script>
 </body>
+
 </html>
