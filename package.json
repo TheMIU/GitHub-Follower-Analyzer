@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@octokit/core": "^5.0.1"
+  }
+}
