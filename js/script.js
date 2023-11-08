@@ -143,8 +143,23 @@ function displayFollowersNotFollowing(followerNames, followingNames) {
     followersNotFollowingDiv.empty();
 
     const followersNotFollowing = followerNames.filter(name => !followingNames.includes(name));
-    const namesList = followersNotFollowing.map(name => `<p>${name}</p>`);
-    followersNotFollowingDiv.html(namesList.join(''));
+
+    // Create a list of profile picture and name elements
+    const profilesList = followersNotFollowing.map(name => {
+
+        const avatarUrl = `https://github.com/${name}.png`;
+        const githubProfileUrl = `https://github.com/${name}`;
+
+        return `
+        <a href="${githubProfileUrl}" target="_blank">
+        <div class="userDataDiv">
+                <img src="${avatarUrl}" alt="${name}'s Avatar" width="50" height="50">
+                <p>${name}</p>
+        </div>
+        </a>`;
+    });
+
+    followersNotFollowingDiv.html(profilesList.join(''));
 }
 
 function displayFollowingNotFollowers(followerNames, followingNames) {
@@ -152,7 +167,22 @@ function displayFollowingNotFollowers(followerNames, followingNames) {
     followingNotFollowersDiv.empty();
 
     const followingNotFollowers = followingNames.filter(name => !followerNames.includes(name));
-    
-    const namesList = followingNotFollowers.map(name => `<p>${name}</p>`);
-    followingNotFollowersDiv.html(namesList.join(''));
+
+    // Create a list of profile picture and name elements
+    const profilesList = followingNotFollowers.map(name => {
+
+        const avatarUrl = `https://github.com/${name}.png`;
+        const githubProfileUrl = `https://github.com/${name}`;
+
+        return `
+        <a href="${githubProfileUrl}" target="_blank">
+        <div class="userDataDiv">
+                <img src="${avatarUrl}" alt="${name}'s Avatar" width="50" height="50">
+                <p>${name}</p>
+        </div>
+        </a>`;
+    });
+
+    followingNotFollowersDiv.html(profilesList.join(''));
 }
+

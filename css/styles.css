@@ -10,7 +10,7 @@ body {
     border-radius: 5px;
 }
 
-p { 
+p {
     margin: 0;
 }
 
@@ -23,4 +23,27 @@ p>b {
 .dark-bg-input {
     background-color: #444;
     color: #fff;
+}
+
+.userDataDiv {
+    display: inline-block;
+    margin: 10px;
+    background-color: #24292e;
+    border-radius: 10%;
+    text-align: center;
+    padding: 10px;
+}
+
+.userDataDiv>p {
+    font-size: 80%;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover{
+    text-decoration: none;
+    color: inherit;
 }
