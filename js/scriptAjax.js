@@ -1,47 +1,64 @@
-const githubToken = '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';
-const githubUsername = 'themiu';
+let githubToken;
+let githubUsername;
 
-// Authenticate using the token
-fetch('https://api.github.com/user', {
-  headers: {
-    'Authorization': `token ${githubToken}`
-  }
-})
-.then(response => response.json())
-.then(user => {
-    console.log('Token:', githubToken);
+$(document).ready(function () {
+    $('#github-form').submit(function (event) {
+        event.preventDefault(); // Prevent the default form submission
 
-    // Now you can use the token and make AJAX requests with it
-    fetchAllFollowers(githubUsername)
-        .then(followers => {
-            fetchAllFollowings(githubUsername)
-                .then(followings => {
-                    console.log('Followers:', followers.length);
-                    console.log('Following:', followings.length);
+        githubToken = $('#github-token').val();
+        githubUsername = $('#github-username').val();
 
-                    const followerNames = followers.map(follower => follower.login);
-                    const followingNames = followings.map(following => following.login);
+        console.log("githubToken : " + githubToken + "  githubUsername : " + githubUsername);
 
-                    // Followers but not Following
-                    const followersNotFollowing = followerNames.filter(name => !followingNames.includes(name));
+        authenticateAndFetchData(githubUsername, githubToken);
+    });
+});
 
-                    // Following but not Followers
-                    const followingNotFollowers = followingNames.filter(name => !followerNames.includes(name));
+function authenticateAndFetchData(username, token) {
+    // Authenticate using the provided token
+    fetch('https://api.github.com/user', {
+        headers: {
+            'Authorization': `token ${token}`
+        }
+    })
+        .then(response => response.json())
+        .then(user => {
+            // token and make AJAX requests with it
+            fetchAllFollowers(username, token)
+                .then(followers => {
+                    fetchAllFollowings(username, token)
+                        .then(followings => {
+                            console.log('Followers:', followers.length);
+                            console.log('Following:', followings.length);
+                            displayFollowers(followers);
+                            displayFollowing(followings);
 
-                    console.log('Followers but not Following:', followersNotFollowing);
-                    console.log('Following but not Followers:', followingNotFollowers);
+                            const followerNames = followers.map(follower => follower.login);
+                            const followingNames = followings.map(following => following.login);
+
+                            // Followers but not Following
+                            const followersNotFollowing = followerNames.filter(name => !followingNames.includes(name));
+
+                            // Following but not Followers
+                            const followingNotFollowers = followingNames.filter(name => !followerNames.includes(name));
+
+                            console.log('Followers but not Following:', followersNotFollowing);
+                            console.log('Following but not Followers:', followingNotFollowers);
+                            displayFollowersNotFollowing(followerNames, followingNames);
+                            displayFollowingNotFollowers(followerNames, followingNames);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
                 })
                 .catch(error => {
                     console.error('Error:', error);
                 });
         })
         .catch(error => {
-            console.error('Error:', error);
+            console.error('Authentication failed:', error);
         });
-})
-.catch(error => {
-    console.error('Authentication failed:', error);
-});
+}
 
 function fetchAllFollowers(username) {
     return fetchPaginatedData(`https://api.github.com/users/${username}/followers`);
@@ -99,4 +116,38 @@ function extractNextLink(linkHeader) {
     }
 
     return null;
+}
+
+
+//////////////// display data
+function displayFollowers(followers) {
+    const followersDiv = $('#followers');
+    followersDiv.empty();
+
+    const followerCount = followers.length;
+    followersDiv.html(`<p>Followers: ${followerCount}</p>`);
+}
+
+function displayFollowing(followings) {
+    const followingDiv = $('#following');
+    followingDiv.empty();
+
+    const followingCount = followings.length;
+    followingDiv.html(`<p>Following: ${followingCount}</p>`);
+}
+
+function displayFollowersNotFollowing(followerNames, followingNames) {
+    const followersNotFollowingDiv = $('#followers-but-not-Following');
+    followersNotFollowingDiv.empty();
+
+    const followersNotFollowing = followerNames.filter(name => !followingNames.includes(name));
+    followersNotFollowingDiv.html(`<p>Followers but not Following: ${followersNotFollowing.join(', ')}</p>`);
+}
+
+function displayFollowingNotFollowers(followerNames, followingNames) {
+    const followingNotFollowersDiv = $('#Following-but-not-followers');
+    followingNotFollowersDiv.empty();
+
+    const followingNotFollowers = followingNames.filter(name => !followerNames.includes(name));
+    followingNotFollowersDiv.html(`<p>Following but not Followers: ${followingNotFollowers.join(', ')}</p>`);
 }

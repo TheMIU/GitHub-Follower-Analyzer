@@ -2,23 +2,28 @@
 <html>
 
 <head>
-  <title>GitHub Token and Username</title>
+    <title>Github Data</title>
 </head>
 
 <body>
-  <h1>Set GitHub Token and Username</h1>
-  <form id="github-form">
-    <label for="github-token">GitHub Token:</label>
-    <input type="text" id="github-token" name="github-token" required>
-    <br>
-    <label for="github-username">GitHub Username:</label>
-    <input type="text" id="github-username" name="github-username" required>
-    <br>
-    <input type="submit" value="Submit">
-  </form>
+    <h1>Set GitHub Token and Username</h1>
+    <form id="github-form">
+        <label for="github-token">GitHub Token:</label>
+        <input type="text" id="github-token" name="github-token" required>
+        <br>
+        <label for="github-username">GitHub Username:</label>
+        <input type="text" id="github-username" name="github-username" required>
+        <br>
+        <button type="submit">Fetch Data</button>
+    </form>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="js/scriptAjax.js"></script>
+    <div id="followers"></div>
+    <div id="following"></div>
+    <div id="followers-but-not-Following"></div>
+    <div id="Following-but-not-followers"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/scriptAjax.js"></script>
 </body>
 
 </html>
