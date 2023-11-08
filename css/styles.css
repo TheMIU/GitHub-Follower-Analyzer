@@ -10,29 +10,17 @@ body {
     border-radius: 5px;
 }
 
-label {
-    color: #ffffff;
+p { 
+    margin: 0;
 }
 
-input[type="text"] {
+p>b {
+
+    margin: 0;
+    font-size: larger;
+}
+
+.dark-bg-input {
     background-color: #444;
-    color: #ffffff;
-    border: none;
-}
-
-button[type="submit"] {
-    background-color: #0366d6;
-    color: #ffffff;
-    border: none;
-}
-
-.result {
-    margin-top: 20px;
-    background-color: #333;
-    padding: 20px;
-    border-radius: 5px;
-}
-
-p {
-    color: #ffffff;
+    color: #fff;
 }

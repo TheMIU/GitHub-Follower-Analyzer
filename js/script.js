@@ -45,15 +45,18 @@ function authenticateAndFetchData(username, token) {
                             displayFollowingNotFollowers(followerNames, followingNames);
                         })
                         .catch(error => {
-                            console.error('Error:', error);
+                            console.log('Error fetching data: check username and token', error);
+                            alert('Error fetching data: check username and token');
                         });
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                    console.log('Error fetching data: check username and token:', error);
+                    alert('Error fetching data: check username and token');
                 });
         })
         .catch(error => {
-            console.error('Authentication failed:', error);
+            console.log('Authentication failed:', error);
+            alert('Authentication failed');
         });
 }
 
@@ -123,7 +126,7 @@ function displayFollowers(followers) {
     followersDiv.empty();
 
     const followerCount = followers.length;
-    followersDiv.html(`<p>Followers: ${followerCount}</p>`);
+    followersDiv.html(`<p>${followerCount}</p>`);
 }
 
 function displayFollowing(followings) {
@@ -132,7 +135,7 @@ function displayFollowing(followings) {
     followingDiv.empty();
 
     const followingCount = followings.length;
-    followingDiv.html(`<p>Following: ${followingCount}</p>`);
+    followingDiv.html(`<p>${followingCount}</p>`);
 }
 
 function displayFollowersNotFollowing(followerNames, followingNames) {
@@ -140,7 +143,8 @@ function displayFollowersNotFollowing(followerNames, followingNames) {
     followersNotFollowingDiv.empty();
 
     const followersNotFollowing = followerNames.filter(name => !followingNames.includes(name));
-    followersNotFollowingDiv.html(`<p>Followers but not Following: ${followersNotFollowing.join(', ')}</p>`);
+    const namesList = followersNotFollowing.map(name => `<p>${name}</p>`);
+    followersNotFollowingDiv.html(namesList.join(''));
 }
 
 function displayFollowingNotFollowers(followerNames, followingNames) {
@@ -148,5 +152,7 @@ function displayFollowingNotFollowers(followerNames, followingNames) {
     followingNotFollowersDiv.empty();
 
     const followingNotFollowers = followingNames.filter(name => !followerNames.includes(name));
-    followingNotFollowersDiv.html(`<p>Following but not Followers: ${followingNotFollowers.join(', ')}</p>`);
+    
+    const namesList = followingNotFollowers.map(name => `<p>${name}</p>`);
+    followingNotFollowersDiv.html(namesList.join(''));
 }

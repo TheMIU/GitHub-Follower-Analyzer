@@ -2,32 +2,62 @@
 <html>
 
 <head>
-    <title>Github Data</title>
+    <title>Github Followers Extractor</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 </head>
 
 <body>
     <div class="container">
-        <h1>Set GitHub Token and Username</h1>
-        <form id="github-form">
-            <div class="form-group">
-                <label for="github-token">GitHub Token:</label>
-                <input type="text" class="form-control" id="github-token" name="github-token" required>
+        <p style="color: chartreuse;"><b>Github Followers Extractor</b></p>
+    </div>
+
+    <div class="container">
+        <p class="mb-2">Type GitHub Token and Username</p>
+        <form id="github-form" class="row">
+            <div class="form-group col-lg-5 col-md-6 col-sm-12">
+                <input type="text" class="form-control dark-bg-input" id="github-token" placeholder="Github Token"
+                    name="github-token" required>
             </div>
-            <div class="form-group">
-                <label for="github-username">GitHub Username:</label>
-                <input type="text" class="form-control" id="github-username" name="github-username" required>
+            <div class="form-group col-lg-5 col-md-6 col-sm-12">
+                <input type="text" class="form-control dark-bg-input" id="github-username" placeholder="Github Username"
+                    name="github-username" required>
             </div>
-            <button type="submit" class="btn btn-primary">Fetch Data</button>
+            <div class="form-group col-lg-2 col-md-12 col-sm-12">
+                <button type="submit" class="btn btn-outline-info btn-block btn-sm"> <i class="fa fa-search"
+                        aria-hidden="true"></i> Fetch Data</button>
+            </div>
         </form>
     </div>
 
-    <div class="container result">
-        <div id="followers"></div>
-        <div id="following"></div>
-        <div id="followers-but-not-Following"></div>
-        <div id="Following-but-not-followers"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p style="color: lightseagreen;">Followers</p>
+                <div id="followers"></div>
+            </div>
+
+            <div class="col">
+                <p style="color: lightseagreen;">Following</p>
+                <div id="following"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p style="color: goldenrod;">Followers but not Following</p>
+                <div id="followers-but-not-Following"></div>
+            </div>
+
+            <div class="col">
+                <p style="color: goldenrod;">Following but not Followers</p>
+                <div id="Following-but-not-followers"></div>
+            </div>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
