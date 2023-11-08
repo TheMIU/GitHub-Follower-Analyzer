@@ -3,7 +3,7 @@ let githubUsername;
 
 $(document).ready(function () {
     $('#github-form').submit(function (event) {
-        event.preventDefault(); // Prevent the default form submission
+        event.preventDefault();
 
         githubToken = $('#github-token').val();
         githubUsername = $('#github-username').val();
@@ -14,6 +14,7 @@ $(document).ready(function () {
     });
 });
 
+////////// fetch followers data //////////
 function authenticateAndFetchData(username, token) {
     // Authenticate using the provided token
     fetch('https://api.github.com/user', {
@@ -28,8 +29,6 @@ function authenticateAndFetchData(username, token) {
                 .then(followers => {
                     fetchAllFollowings(username, token)
                         .then(followings => {
-                            console.log('Followers:', followers.length);
-                            console.log('Following:', followings.length);
                             displayFollowers(followers);
                             displayFollowing(followings);
 
@@ -42,8 +41,6 @@ function authenticateAndFetchData(username, token) {
                             // Following but not Followers
                             const followingNotFollowers = followingNames.filter(name => !followerNames.includes(name));
 
-                            console.log('Followers but not Following:', followersNotFollowing);
-                            console.log('Following but not Followers:', followingNotFollowers);
                             displayFollowersNotFollowing(followerNames, followingNames);
                             displayFollowingNotFollowers(followerNames, followingNames);
                         })
@@ -119,8 +116,9 @@ function extractNextLink(linkHeader) {
 }
 
 
-//////////////// display data
+////////// display data //////////
 function displayFollowers(followers) {
+    console.log(followers);
     const followersDiv = $('#followers');
     followersDiv.empty();
 
@@ -129,6 +127,7 @@ function displayFollowers(followers) {
 }
 
 function displayFollowing(followings) {
+    console.log(followings);
     const followingDiv = $('#following');
     followingDiv.empty();
 

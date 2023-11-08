@@ -1,0 +1,38 @@
+body {
+    background-color: #24292e;
+    color: #ffffff;
+}
+
+.container {
+    background-color: #333;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+label {
+    color: #ffffff;
+}
+
+input[type="text"] {
+    background-color: #444;
+    color: #ffffff;
+    border: none;
+}
+
+button[type="submit"] {
+    background-color: #0366d6;
+    color: #ffffff;
+    border: none;
+}
+
+.result {
+    margin-top: 20px;
+    background-color: #333;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+p {
+    color: #ffffff;
+}
