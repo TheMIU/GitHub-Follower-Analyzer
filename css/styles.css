@@ -27,15 +27,15 @@ p>b {
 .dark-input:-webkit-autofill:hover,
 .dark-input:-webkit-autofill:focus,
 .dark-input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px #343a40 inset !important; /* Dark background color */
-    box-shadow: 0 0 0 30px #343a40 inset !important; /* Dark background color */
+    -webkit-box-shadow: 0 0 0 30px #343a40 inset !important;
+    box-shadow: 0 0 0 30px #343a40 inset !important;
     color: #ffffff !important; /* White text color */
-    border: solid 2px hsl(210, 100%, 50%) ;
+    border: solid 2px hsla(210, 100%, 50%, 0.36) ;
 }
 
 /* Specific style for autofilled text color */
 .dark-input:-webkit-autofill {
-    -webkit-text-fill-color: #ffffff8b !important; /* Set the text color specifically for autofill */
+    -webkit-text-fill-color: #ffffff8b !important;
 }
 
 .userDataDiv {

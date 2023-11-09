@@ -5,6 +5,8 @@ $(document).ready(function () {
     $('#github-form').submit(function (event) {
         event.preventDefault();
 
+        showLoading();
+
         githubToken = $('#github-token').val();
         githubUsername = $('#github-username').val();
 
@@ -13,6 +15,26 @@ $(document).ready(function () {
         authenticateAndFetchData(githubUsername, githubToken);
     });
 });
+
+////////// loading //////////
+hideLoading();
+$('#count').hide();
+$('#img-divs').hide();
+
+function showLoading() {
+    $('#count').hide();
+    $('#img-divs').hide();
+
+    $('#loading-container').show();
+}
+
+function hideLoading() {
+    $('#loading-container').hide();
+
+    $('#count').show();
+    $('#img-divs').show();
+}
+
 
 ////////// fetch followers data //////////
 function authenticateAndFetchData(username, token) {
@@ -29,6 +51,8 @@ function authenticateAndFetchData(username, token) {
                 .then(followers => {
                     fetchAllFollowings(username, token)
                         .then(followings => {
+                            hideLoading();
+
                             displayFollowers(followers);
                             displayFollowing(followings);
 
@@ -45,16 +69,19 @@ function authenticateAndFetchData(username, token) {
                             displayFollowingNotFollowers(followerNames, followingNames);
                         })
                         .catch(error => {
+                            hideLoading();
                             console.log('Error fetching data: check username and token', error);
                             alert('Error fetching data: check username and token');
                         });
                 })
                 .catch(error => {
+                    hideLoading();
                     console.log('Error fetching data: check username and token:', error);
                     alert('Error fetching data: check username and token');
                 });
         })
         .catch(error => {
+            hideLoading();
             console.log('Authentication failed:', error);
             alert('Authentication failed');
         });

@@ -5,10 +5,6 @@
     <title>Github Followers Extractor</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
-
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -18,7 +14,8 @@
 
 <body>
     <div class="container">
-        <p style="color: chartreuse;"><b>Github Followers Extractor</b></p>
+        <p style="color: chartreuse;"><b> <i class="fa-brands fa-github fa-2x"></i>
+                Github Followers Extractor</b></p>
     </div>
 
     <div class="container">
@@ -39,36 +36,45 @@
         </form>
     </div>
 
-    <div class="container">
+    <div id="loading-container" class="container" > <img src="img/loading.gif" width=5% alt="Loading..."> </div>
+
+    <div class="container" id="count">
         <div class="row">
             <div class="col d-flex">
-                <p style="color: chartreuse;" class="mr-3">Followers</p>
+                <p style="color: chartreuse;" class="mr-3"> <i class="fas fa-users"></i>
+                    Followers</p>
                 <div id="followers" style="font-size: larger; font-weight: bold;"></div>
             </div>
 
             <div class="col d-flex">
-                <p style="color: chartreuse;" class="mr-3">Following</p>
+                <p style="color: chartreuse;" class="mr-3"> <i class="fas fa-users"></i>
+                    Following</p>
                 <div id="following" style="font-size: larger; font-weight: bold;"></div>
             </div>
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" id="img-divs">
         <div class="row">
             <div class="col">
-                <p style="color: rgb(255, 183, 0);">Followers but not Following</p>
-                <div id="followers-but-not-Following"> Here shows your followers, but you havn't followed them</div>
+                <p style="color: rgb(255, 183, 0);"> <i class="fas fa-address-card"></i>
+                    Followers but not Following</p>
+                <div id="followers-but-not-Following" style="font-size: smaller;"> Here are the followers, but this user
+                    hasn't followed them.</div>
             </div>
 
             <div class="col">
-                <p style="color: rgb(255, 183, 0);">Following but not Followers</p>
-                <div id="Following-but-not-followers"> Here shows your followings, but they are not followed you</div>
+                <p style="color: rgb(255, 183, 0);"> <i class="fas fa-address-card"></i>
+                    Following but not Followers</p>
+                <div id="Following-but-not-followers" style="font-size: smaller;"> Here are the followings, but they are
+                    not following this user.</div>
             </div>
         </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/script.js"></script>
+    <script src="https://kit.fontawesome.com/be11977956.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
