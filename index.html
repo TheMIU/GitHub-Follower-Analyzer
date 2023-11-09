@@ -5,8 +5,15 @@
     <title>Github Followers Extractor</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
+
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Creepster&family=Gabarito&family=Kanit:wght@100;200;400;500;600;700;800&family=Roboto+Mono:wght@300;400;700&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -18,11 +25,11 @@
         <p class="mb-2" style="color: gray;">Type GitHub Token and Username</p>
         <form id="github-form" class="row">
             <div class="form-group col-lg-5 col-md-6 col-sm-12">
-                <input type="text" class="form-control dark-bg-input" id="github-token" placeholder="Github Token"
+                <input type="text" class="form-control dark-input" id="github-token" placeholder="Github Token"
                     name="github-token" required>
             </div>
             <div class="form-group col-lg-5 col-md-6 col-sm-12">
-                <input type="text" class="form-control dark-bg-input" id="github-username" placeholder="Github Username"
+                <input type="text" class="form-control dark-input" id="github-username" placeholder="Github Username"
                     name="github-username" required>
             </div>
             <div class="form-group col-lg-2 col-md-12 col-sm-12">
@@ -34,14 +41,14 @@
 
     <div class="container">
         <div class="row">
-            <div class="col">
-                <p style="color: chartreuse;">Followers</p>
-                <div id="followers"></div>
+            <div class="col d-flex">
+                <p style="color: chartreuse;" class="mr-3">Followers</p>
+                <div id="followers" style="font-size: larger; font-weight: bold;"></div>
             </div>
 
-            <div class="col">
-                <p style="color: chartreuse;">Following</p>
-                <div id="following"></div>
+            <div class="col d-flex">
+                <p style="color: chartreuse;" class="mr-3">Following</p>
+                <div id="following" style="font-size: larger; font-weight: bold;"></div>
             </div>
         </div>
     </div>
@@ -49,13 +56,13 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <p style="color: goldenrod;">Followers but not Following</p>
-                <div id="followers-but-not-Following"></div>
+                <p style="color: rgb(255, 183, 0);">Followers but not Following</p>
+                <div id="followers-but-not-Following"> Here shows your followers, but you havn't followed them</div>
             </div>
 
             <div class="col">
-                <p style="color: goldenrod;">Following but not Followers</p>
-                <div id="Following-but-not-followers"></div>
+                <p style="color: rgb(255, 183, 0);">Following but not Followers</p>
+                <div id="Following-but-not-followers"> Here shows your followings, but they are not followed you</div>
             </div>
         </div>
     </div>

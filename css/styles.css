@@ -1,4 +1,5 @@
 body {
+    font-family: Roboto Mono;
     background-color: #24292e;
     color: #ffffff;
 }
@@ -20,9 +21,21 @@ p>b {
     font-size: larger;
 }
 
-.dark-bg-input {
-    background-color: #444;
-    color: #fff;
+/* Custom CSS for dark-themed input fields */
+.dark-input,
+.dark-input:-webkit-autofill,
+.dark-input:-webkit-autofill:hover,
+.dark-input:-webkit-autofill:focus,
+.dark-input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #343a40 inset !important; /* Dark background color */
+    box-shadow: 0 0 0 30px #343a40 inset !important; /* Dark background color */
+    color: #ffffff !important; /* White text color */
+    border: solid 2px hsl(210, 100%, 50%) ;
+}
+
+/* Specific style for autofilled text color */
+.dark-input:-webkit-autofill {
+    -webkit-text-fill-color: #ffffff8b !important; /* Set the text color specifically for autofill */
 }
 
 .userDataDiv {
@@ -38,12 +51,12 @@ p>b {
     font-size: 80%;
 }
 
-a{
+a {
     text-decoration: none;
     color: inherit;
 }
 
-a:hover{
+a:hover {
     text-decoration: none;
     color: inherit;
 }
