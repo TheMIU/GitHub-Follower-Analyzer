@@ -3,6 +3,8 @@
 
 <head>
     <title>Github Followers Extractor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <link rel="icon" type="image/png" href="img/fav.ico">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
@@ -14,64 +16,111 @@
 </head>
 
 <body>
-    <div class="container">
-        <p style="color: chartreuse;"><b> <i class="fa-brands fa-github fa-2x"></i>
-                Github Followers Extractor</b></p>
+    <header>
+        <!-- navbar -->
+        <nav class="navbar navbar-expand-lg bg-black fixed-top" style="background-color: black;">
+            <div class="container-fluid">
+                <p class="navbar-brand" style="color: chartreuse; font-size: 100%; padding: 0; margin: 0;"><b>
+                        <i class="fa-brands fa-github"></i>
+                        Github Followers Extractor</b></p>
+            </div>
+        </nav>
+    </header>
+
+    <img id="bg" src="img/bg2.svg" alt="Background Image">
+
+    <!-- loading -->
+    <div class="dark-container d-flex align-items-center justify-content-center"
+        style="position: fixed; width: 100%; height: 100%; z-index: 100;" id="loading-container">
+        <img src="img/loading.gif" width="5%" class="img-fluid" alt="Loading...">
     </div>
 
-    <div class="container">
-        <p class="mb-2" style="color: gray;">Type GitHub Token and Username</p>
-        <form id="github-form" class="row">
-            <div class="form-group col-lg-5 col-md-6 col-sm-12">
-                <input type="text" class="form-control dark-input" id="github-token" placeholder="Github Token"
-                    name="github-token" required>
-            </div>
-            <div class="form-group col-lg-5 col-md-6 col-sm-12">
-                <input type="text" class="form-control dark-input" id="github-username" placeholder="Github Username"
-                    name="github-username" required>
-            </div>
-            <div class="form-group col-lg-2 col-md-12 col-sm-12">
-                <button type="submit" class="btn btn-info btn-block"> <i class="fa fa-search"
-                        aria-hidden="true"></i> Show</button>
-            </div>
-        </form>
-    </div>
 
-    <div id="loading-container" class="container" > <img src="img/loading.gif" width=5% alt="Loading..."> </div>
+    <main>
+        <br>
+        <br>
 
-    <div class="container" id="count">
-        <div class="row">
-            <div class="col d-flex">
-                <p style="color: chartreuse;" class="mr-3"> <i class="fas fa-users"></i>
-                    Followers</p>
-                <div id="followers" style="font-size: larger; font-weight: bold;"></div>
-            </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4">
+                    <!-- form -->
+                    <div class="dark-container">
+                        <p class="mb-2" style="color: gray;">Type GitHub Token and Username</p>
+                        <form id="github-form" class="col">
+                            <div class="form-group row">
+                                <input type="text" class="form-control dark-input" id="github-token"
+                                    placeholder="Github Token" name="github-token" required>
+                            </div>
+                            <div class="form-group row">
+                                <input type="text" class="form-control dark-input" id="github-username"
+                                    placeholder="Github Username" name="github-username" required>
+                            </div>
+                            <div class="form-group row">
+                                <button type="submit" class="btn btn-outline-success btn-block"> <i class="fa fa-search"
+                                        aria-hidden="true"></i>
+                                    Show</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
-            <div class="col d-flex">
-                <p style="color: chartreuse;" class="mr-3"> <i class="fas fa-users"></i>
-                    Following</p>
-                <div id="following" style="font-size: larger; font-weight: bold;"></div>
+
+                <div class="col-lg-8">
+                    <div class="container">
+                        <div class="row dark-container" id="count">
+                            <div class="row">
+                                <div class="col-6">
+                                    <p style="color: chartreuse;" class="mr-3"> <i class="fas fa-users"></i>
+                                        Followers</p>
+                                    <div id="followers" style="font-size: larger; font-weight: bold;"></div>
+                                </div>
+
+                                <div class="col-6">
+                                    <p style="color: chartreuse;" class="mr-3"> <i class="fas fa-users"></i>
+                                        Following</p>
+                                    <div id="following" style="font-size: larger; font-weight: bold;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row dark-container" id="img-divs">
+                            <div class="row">
+                                <div class="col-6">
+                                    <p style="color: rgb(255, 183, 0);"> <i class="fas fa-address-card"></i>
+                                        Followers but not Following</p>
+                                    <div id="followers-but-not-Following" style="font-size: smaller;"> Here are the
+                                        followers, but this
+                                        user
+                                        hasn't followed them.</div>
+                                </div>
+
+                                <div class="col-6">
+                                    <p style="color: rgb(255, 183, 0);"> <i class="fas fa-address-card"></i>
+                                        Following but not Followers</p>
+                                    <div id="Following-but-not-followers" style="font-size: smaller;"> Here are the
+                                        followings, but they
+                                        are
+                                        not following this user.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="container" id="img-divs">
-        <div class="row">
-            <div class="col">
-                <p style="color: rgb(255, 183, 0);"> <i class="fas fa-address-card"></i>
-                    Followers but not Following</p>
-                <div id="followers-but-not-Following" style="font-size: smaller;"> Here are the followers, but this user
-                    hasn't followed them.</div>
-            </div>
 
-            <div class="col">
-                <p style="color: rgb(255, 183, 0);"> <i class="fas fa-address-card"></i>
-                    Following but not Followers</p>
-                <div id="Following-but-not-followers" style="font-size: smaller;"> Here are the followings, but they are
-                    not following this user.</div>
-            </div>
-        </div>
-    </div>
+    </main>
+
+    <br>
+    <br>
+
+    <!-- Footer -->
+    <footer class="fixed-bottom text-center text-secondary" style="background-color: black;">
+        <p class="mt-1" style="font-size: 12px;"> Kasun Miuranga <i class="fa-regular fa-copyright"></i> 2023 </p>
+    </footer>
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/script.js"></script>

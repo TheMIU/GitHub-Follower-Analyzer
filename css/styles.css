@@ -1,24 +1,25 @@
 body {
     font-family: Roboto Mono;
-    background-color: #24292e;
+    background-color: #000000;
     color: #ffffff;
 }
 
-.container {
-    background-color: #333;
+#bg {
+    opacity: 80%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -100;
+}
+
+.dark-container {
+    background-color: #000000dc;
     margin-top: 20px;
     padding: 20px;
     border-radius: 5px;
-}
-
-p {
-    margin: 0;
-}
-
-p>b {
-
-    margin: 0;
-    font-size: larger;
 }
 
 /* Custom CSS for dark-themed input fields */
@@ -29,20 +30,26 @@ p>b {
 .dark-input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px #343a40 inset !important;
     box-shadow: 0 0 0 30px #343a40 inset !important;
-    color: #ffffff !important; /* White text color */
-    border: solid 2px hsla(210, 100%, 50%, 0.36) ;
+    color: #ffffff !important;
+    /* White text color */
+    border: solid 2px hsla(210, 100%, 50%, 0.36);
 }
 
-/* Specific style for autofilled text color */
+/* Specific style for autofill text color */
 .dark-input:-webkit-autofill {
     -webkit-text-fill-color: #ffffff8b !important;
+}
+
+div>p {
+    margin: 0;
+    margin-top: 10px;
 }
 
 .userDataDiv {
     display: inline-block;
     margin: 10px;
-    background-color: #24292e;
-    border-radius: 10%;
+    background-color: #000000dc;
+    border-radius: 10px;
     text-align: center;
     padding: 10px;
 }
