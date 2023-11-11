@@ -1,7 +1,10 @@
 let githubToken;
 let githubUsername;
 
-
+let followerNames = [];
+let followingNames = [];
+let currentPage = 1;
+const itemsPerPage = 8;
 
 $(document).ready(function () {
     $('#github-form').submit(function (event) {
@@ -19,7 +22,7 @@ $(document).ready(function () {
 });
 
 ////////// Error //////////
-function showError(){
+function showError() {
     Swal.fire({
         title: 'Error fetching data!',
         text: 'check username and token',
@@ -27,7 +30,7 @@ function showError(){
         confirmButtonText: 'ok',
         buttonsStyling: false,
         customClass: {
-            confirmButton: 'btn btn-outline-success'  // Add the class here
+            confirmButton: 'btn btn-outline-success'
         }
     });
 }
@@ -74,8 +77,8 @@ function authenticateAndFetchData(username, token) {
                             displayFollowers(followers);
                             displayFollowing(followings);
 
-                            const followerNames = followers.map(follower => follower.login);
-                            const followingNames = followings.map(following => following.login);
+                            followerNames = followers.map(follower => follower.login);
+                            followingNames = followings.map(following => following.login);
 
                             displayFollowersNotFollowing(followerNames, followingNames);
                             displayFollowingNotFollowers(followerNames, followingNames);
@@ -169,16 +172,20 @@ function displayFollowing(followings) {
     $('#following').text(followings.length);
 }
 
-function displayFollowersNotFollowing(followerNames, followingNames) {
+function displayFollowersNotFollowing() {
     const followersNotFollowingDiv = $('#followers-but-not-Following');
+    const paginationDiv = $('#pagination-followers-but-not-Following');
 
     const followersNotFollowing = followerNames.filter(name => !followingNames.includes(name));
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const displayedFollowers = followersNotFollowing.slice(startIndex, endIndex);
 
     $('#followers-not-following-count').text(followersNotFollowing.length);
 
     // Create a list of profile picture and name elements
-    const profilesList = followersNotFollowing.map(name => {
-
+    const profilesList = displayedFollowers.map(name => {
         const avatarUrl = `https://github.com/${name}.png`;
         const githubProfileUrl = `https://github.com/${name}`;
 
@@ -192,17 +199,41 @@ function displayFollowersNotFollowing(followerNames, followingNames) {
     });
 
     followersNotFollowingDiv.html(profilesList.join(''));
+
+    // Pagination FollowersNotFollowing
+    const totalPages = Math.ceil(followersNotFollowing.length / itemsPerPage);
+    const paginationButtons = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+    const paginationHtml = paginationButtons.map(page => {
+        const activeClass = page === currentPage ? 'active' : '';
+        return `<button class="m-1 btn btn-sm btn-outline-success ${activeClass}
+        " onclick="changePageFollowersNotFollowing(${page})">${page}</button>`;
+    }).join('');
+
+    paginationDiv.html(paginationHtml);
 }
 
-function displayFollowingNotFollowers(followerNames, followingNames) {
+function changePageFollowersNotFollowing(page) {
+    currentPage = page;
+    displayFollowersNotFollowing();
+}
+
+
+function displayFollowingNotFollowers() {
     const followingNotFollowersDiv = $('#Following-but-not-followers');
+    const paginationDiv = $('#pagination-Following-but-not-followers');
 
     const followingNotFollowers = followingNames.filter(name => !followerNames.includes(name));
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const displayedFollowings = followingNotFollowers.slice(startIndex, endIndex);
+
 
     $('#following-not-followers-count').text(followingNotFollowers.length);
 
     // Create a list of profile picture and name elements
-    const profilesList = followingNotFollowers.map(name => {
+    const profilesList = displayedFollowings.map(name => {
 
         const avatarUrl = `https://github.com/${name}.png`;
         const githubProfileUrl = `https://github.com/${name}`;
@@ -217,5 +248,21 @@ function displayFollowingNotFollowers(followerNames, followingNames) {
     });
 
     followingNotFollowersDiv.html(profilesList.join(''));
+
+    // Pagination FollowersNotFollowing
+    const totalPages = Math.ceil(followingNotFollowers.length / itemsPerPage);
+    const paginationButtons = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+    const paginationHtml = paginationButtons.map(page => {
+        const activeClass = page === currentPage ? 'active' : '';
+        return `<button class="m-1 btn btn-sm btn-outline-success ${activeClass}
+        " onclick="changePageFollowingNotFollowers(${page})">${page}</button>`;
+    }).join('');
+
+    paginationDiv.html(paginationHtml);
 }
 
+function changePageFollowingNotFollowers(page) {
+    currentPage = page;
+    displayFollowingNotFollowers()
+}
