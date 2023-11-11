@@ -151,27 +151,20 @@ function extractNextLink(linkHeader) {
 ////////// display data //////////
 function displayFollowers(followers) {
     console.log(followers);
-    const followersDiv = $('#followers');
-    followersDiv.empty();
-
-    const followerCount = followers.length;
-    followersDiv.html(`<p>${followerCount}</p>`);
+    $('#followers').text(followers.length);
 }
 
 function displayFollowing(followings) {
     console.log(followings);
-    const followingDiv = $('#following');
-    followingDiv.empty();
-
-    const followingCount = followings.length;
-    followingDiv.html(`<p>${followingCount}</p>`);
+    $('#following').text(followings.length);
 }
 
 function displayFollowersNotFollowing(followerNames, followingNames) {
     const followersNotFollowingDiv = $('#followers-but-not-Following');
-    followersNotFollowingDiv.empty();
 
     const followersNotFollowing = followerNames.filter(name => !followingNames.includes(name));
+
+    $('#followers-not-following-count').text(followersNotFollowing.length);
 
     // Create a list of profile picture and name elements
     const profilesList = followersNotFollowing.map(name => {
@@ -193,9 +186,10 @@ function displayFollowersNotFollowing(followerNames, followingNames) {
 
 function displayFollowingNotFollowers(followerNames, followingNames) {
     const followingNotFollowersDiv = $('#Following-but-not-followers');
-    followingNotFollowersDiv.empty();
 
     const followingNotFollowers = followingNames.filter(name => !followerNames.includes(name));
+
+    $('#following-not-followers-count').text(followingNotFollowers.length);
 
     // Create a list of profile picture and name elements
     const profilesList = followingNotFollowers.map(name => {

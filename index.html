@@ -62,55 +62,63 @@
                             </div>
                         </form>
                     </div>
+
+                    <!-- followers count -->
+                    <div class="dark-container" id="count">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <p style="color: chartreuse;" class="mr-3"> <i class="fas fa-users"></i>
+                                    Followers <span id="followers"
+                                        style="font-weight: bold; color: rgb(255, 255, 255);"> </span>
+                                </p>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <p style="color: chartreuse;" class="mr-3"> <i class="fas fa-users"></i>
+                                    Following <span id="following"
+                                        style="font-weight: bold; color: rgb(255, 255, 255);"> </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
 
                 <div class="col-lg-8">
-                    <div class="container">
-                        <div class="row dark-container" id="count">
-                            <div class="row">
-                                <div class="col-6">
-                                    <p style="color: chartreuse;" class="mr-3"> <i class="fas fa-users"></i>
-                                        Followers</p>
-                                    <div id="followers" style="font-size: larger; font-weight: bold;"></div>
-                                </div>
+                    <div class="dark-container">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <p style="color: rgb(255, 183, 0);"> <i class="fas fa-address-card"></i>
+                                    Followers but not Following <span id="followers-not-following-count"
+                                        style="font-weight: bold; color: rgb(255, 255, 255);"> 123 </span>
+                                </p>
 
-                                <div class="col-6">
-                                    <p style="color: chartreuse;" class="mr-3"> <i class="fas fa-users"></i>
-                                        Following</p>
-                                    <div id="following" style="font-size: larger; font-weight: bold;"></div>
-                                </div>
+                                <div style="font-size: smaller;"> Here are the
+                                    followers, but this
+                                    user
+                                    hasn't followed them.</div>
+
+                                <div id="followers-but-not-Following" style="font-size: smaller;"> </div>
                             </div>
-                        </div>
 
-                        <div class="row dark-container" id="img-divs">
-                            <div class="row">
-                                <div class="col-6">
-                                    <p style="color: rgb(255, 183, 0);"> <i class="fas fa-address-card"></i>
-                                        Followers but not Following</p>
-                                    <div id="followers-but-not-Following" style="font-size: smaller;"> Here are the
-                                        followers, but this
-                                        user
-                                        hasn't followed them.</div>
-                                </div>
+                            <div class="col-lg-6">
+                                <p style="color: rgb(255, 183, 0);"> <i class="fas fa-address-card"></i>
+                                    Following but not Followers <span id="following-not-followers-count"
+                                        style="font-weight: bold; color: rgb(255, 255, 255);"> 123 </span>
+                                </p>
 
-                                <div class="col-6">
-                                    <p style="color: rgb(255, 183, 0);"> <i class="fas fa-address-card"></i>
-                                        Following but not Followers</p>
-                                    <div id="Following-but-not-followers" style="font-size: smaller;"> Here are the
-                                        followings, but they
-                                        are
-                                        not following this user.</div>
-                                </div>
+                                <div style="font-size: smaller;"> Here are the
+                                    followings, but they
+                                    are
+                                    not following this user.</div>
+
+                                <div id="Following-but-not-followers" style="font-size: smaller;"></div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-
-
     </main>
 
     <br>
