@@ -13,6 +13,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Creepster&family=Gabarito&family=Kanit:wght@100;200;400;500;600;700;800&family=Roboto+Mono:wght@300;400;700&display=swap"
         rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
 </head>
 
 <body>
@@ -45,7 +47,7 @@
                 <div class="col-lg-4">
                     <!-- form -->
                     <div class="dark-container">
-                        <p class="mb-2" style="color: gray;">Type GitHub Token and Username</p>
+                        <p class="mb-2" style="color: rgb(252, 252, 252);">Type GitHub Token and Username</p>
                         <form id="github-form" class="col">
                             <div class="form-group row">
                                 <input type="text" class="form-control dark-input" id="github-token"
@@ -90,7 +92,7 @@
                             <div class="col-lg-6">
                                 <p style="color: rgb(255, 183, 0);"> <i class="fas fa-address-card"></i>
                                     Followers but not Following <span id="followers-not-following-count"
-                                        style="font-weight: bold; color: rgb(255, 255, 255);"> 123 </span>
+                                        style="font-weight: bold; color: rgb(255, 255, 255);"> </span>
                                 </p>
 
                                 <div style="font-size: smaller;"> Here are the
@@ -104,7 +106,7 @@
                             <div class="col-lg-6">
                                 <p style="color: rgb(255, 183, 0);"> <i class="fas fa-address-card"></i>
                                     Following but not Followers <span id="following-not-followers-count"
-                                        style="font-weight: bold; color: rgb(255, 255, 255);"> 123 </span>
+                                        style="font-weight: bold; color: rgb(255, 255, 255);"> </span>
                                 </p>
 
                                 <div style="font-size: smaller;"> Here are the
@@ -130,9 +132,14 @@
     </footer>
 
 
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="js/script.js"></script>
+
     <script src="https://kit.fontawesome.com/be11977956.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+    <script src="js/script.js"></script>
 </body>
 
 </html>

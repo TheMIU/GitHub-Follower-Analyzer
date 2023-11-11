@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SweetAlert Example</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+    <!-- Include SweetAlert2 CSS from CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+   <!--  dark theme -->
+   <!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" > -->
+</head>
+
+<body>
+
+    <!-- Your HTML content -->
+
+    <!-- Include SweetAlert2 JS from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function showError() {
+            Swal.fire({
+                title: 'Error fetching data!',
+                text: 'Check username and token',
+                icon: 'error',
+                confirmButtonText: 'OK',
+                buttonsStyling: false,
+                customClass: {
+                    confirmButton: 'btn btn-outline-success'  // Add the class here
+                }
+            });
+        }
+    </script>
+
+    <!-- Your HTML content -->
+
+    <button class="btn btn-dark" onclick="showError()">Show Error</button>
+
+</body>
+
+</html>

@@ -1,6 +1,8 @@
 let githubToken;
 let githubUsername;
 
+
+
 $(document).ready(function () {
     $('#github-form').submit(function (event) {
         event.preventDefault();
@@ -15,6 +17,20 @@ $(document).ready(function () {
         authenticateAndFetchData(githubUsername, githubToken);
     });
 });
+
+////////// Error //////////
+function showError(){
+    Swal.fire({
+        title: 'Error fetching data!',
+        text: 'check username and token',
+        icon: 'error',
+        confirmButtonText: 'ok',
+        buttonsStyling: false,
+        customClass: {
+            confirmButton: 'btn btn-outline-success'  // Add the class here
+        }
+    });
+}
 
 ////////// loading //////////
 hideLoading();
@@ -61,31 +77,25 @@ function authenticateAndFetchData(username, token) {
                             const followerNames = followers.map(follower => follower.login);
                             const followingNames = followings.map(following => following.login);
 
-                            // Followers but not Following
-                            const followersNotFollowing = followerNames.filter(name => !followingNames.includes(name));
-
-                            // Following but not Followers
-                            const followingNotFollowers = followingNames.filter(name => !followerNames.includes(name));
-
                             displayFollowersNotFollowing(followerNames, followingNames);
                             displayFollowingNotFollowers(followerNames, followingNames);
                         })
                         .catch(error => {
                             hideLoading();
                             console.log('Error fetching data: check username and token', error);
-                            alert('Error fetching data: check username and token');
+                            showError();
                         });
                 })
                 .catch(error => {
                     hideLoading();
                     console.log('Error fetching data: check username and token:', error);
-                    alert('Error fetching data: check username and token');
+                    showError();
                 });
         })
         .catch(error => {
             hideLoading();
             console.log('Authentication failed:', error);
-            alert('Authentication failed');
+            showError();
         });
 }
 
