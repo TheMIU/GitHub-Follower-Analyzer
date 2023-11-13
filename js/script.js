@@ -11,6 +11,7 @@ $(document).ready(function () {
         event.preventDefault();
 
         showLoading();
+        $('#form').hide();
 
         githubToken = $('#github-token').val();
         githubUsername = $('#github-username').val();
@@ -19,6 +20,15 @@ $(document).ready(function () {
 
         authenticateAndFetchData(githubUsername, githubToken);
     });
+
+    // search new user
+    $('#searchNew').click(function () {
+        initialView();
+
+        $('#github-username').val('');
+        $('#github-username').focus();
+    });
+
 });
 
 ////////// Error //////////
@@ -34,23 +44,42 @@ function showError() {
         }
     });
 }
-    
+
 ////////// loading //////////
 hideLoading();
+initialView();
 
-$('#count').hide();
-$('#img-divs').hide();
+function initialView() {
+    $('#form').show();
+    $('#userDetails').hide();
+    $('#img-divs').hide();
+    $('#summary').hide();
+    $('#followers-not-following-div').hide();
+    $('#following-not-followers-div').hide();
+    $('#loading-container').hide();
+    $('#searchNew').hide();
+}
 
 function showLoading() {
-    $('#count').hide();
-    $('#img-divs').hide();
     $('#loading-container').show();
+
+    $('#userDetails').hide();
+    $('#img-divs').hide();
+    $('#summary').hide();
+    $('#followers-not-following-div').hide();
+    $('#following-not-followers-div').hide();
+    $('#searchNew').hide();
 }
 
 function hideLoading() {
     $('#loading-container').hide();
-    $('#count').show();
+
+    $('#userDetails').show();
     $('#img-divs').show();
+    $('#summary').show();
+    $('#followers-not-following-div').show();
+    $('#following-not-followers-div').show();
+    $('#searchNew').show();
 }
 
 //$('#loading-container').hide();
@@ -82,19 +111,19 @@ function authenticateAndFetchData(username, token) {
                             displayFollowingNotFollowers(followerNames, followingNames);
                         })
                         .catch(error => {
-                            hideLoading();
+                            initialView();
                             console.log('Error fetching data: check username and token', error);
                             showError();
                         });
                 })
                 .catch(error => {
-                    hideLoading();
+                    initialView();
                     console.log('Error fetching data: check username and token:', error);
                     showError();
                 });
         })
         .catch(error => {
-            hideLoading();
+            initialView();
             console.log('Authentication failed:', error);
             showError();
         });
