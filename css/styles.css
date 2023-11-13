@@ -28,8 +28,8 @@ body {
 .dark-input:-webkit-autofill:hover,
 .dark-input:-webkit-autofill:focus,
 .dark-input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px #343a40 inset !important;
-    box-shadow: 0 0 0 30px #343a40 inset !important;
+    -webkit-box-shadow: 0 0 0 30px #929292 inset !important;
+    box-shadow: 0 0 0 30px rgba(32, 139, 73, 0.979) inset !important;
     color: #ffffff !important;
     /* White text color */
     border: solid 2px hsla(210, 100%, 50%, 0.36);
@@ -37,7 +37,7 @@ body {
 
 /* Specific style for autofill text color */
 .dark-input:-webkit-autofill {
-    -webkit-text-fill-color: #ffffff8b !important;
+    -webkit-text-fill-color: #ffffffc7 !important;
 }
 
 div>p {

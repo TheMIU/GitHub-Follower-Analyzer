@@ -34,7 +34,7 @@ function showError() {
         }
     });
 }
-
+    
 ////////// loading //////////
 hideLoading();
 
@@ -44,18 +44,16 @@ $('#img-divs').hide();
 function showLoading() {
     $('#count').hide();
     $('#img-divs').hide();
-
-    $('#loading-container').addClass('d-flex');
     $('#loading-container').show();
 }
 
 function hideLoading() {
     $('#loading-container').hide();
-    $('#loading-container').removeClass('d-flex');
     $('#count').show();
     $('#img-divs').show();
 }
 
+//$('#loading-container').hide();
 
 ////////// fetch followers data //////////
 function authenticateAndFetchData(username, token) {
