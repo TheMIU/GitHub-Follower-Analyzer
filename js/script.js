@@ -48,8 +48,14 @@ function showError() {
 }
 
 ////////// loading //////////
-hideLoading();
-initialView();
+
+// Hide the loading when the document is fully loaded
+document.onreadystatechange = function () {
+    if (document.readyState === "complete") {
+        hideLoading();
+        initialView();
+    }
+};
 
 function initialView() {
     $('#form').show();
