@@ -6,6 +6,9 @@ let followingNames = [];
 let currentPage = 1;
 const itemsPerPage = 8;
 
+let followersNotFollowing = [];
+let followingNotFollowers = [];
+
 $(document).ready(function () {
     $('#github-form').submit(function (event) {
         event.preventDefault();
@@ -27,16 +30,6 @@ $(document).ready(function () {
 
         $('#github-username').val('');
         $('#github-username').focus();
-    });
-
-    // btnFollowers
-    $('#btnFollowers').click(function () {
-        //displayFollowersDiv();
-    });
-
-    // btnFollowings
-    $('#btnFollowings').click(function () {
-        console.log("Clicked");
     });
 });
 
@@ -115,6 +108,11 @@ function authenticateAndFetchData(username, token) {
 
                             followerNames = followers.map(follower => follower.login);
                             followingNames = followings.map(following => following.login);
+
+                            followersNotFollowing = followerNames.filter(name => !followingNames.includes(name));
+                            followingNotFollowers = followingNames.filter(name => !followerNames.includes(name));
+
+                            checkEmpty();
 
                             displayFollowersNotFollowing();
                             displayFollowingNotFollowers();
@@ -211,8 +209,27 @@ function displayFollowing(followings) {
     $('#following').text(followings.length);
 }
 
+// check if empty arrays
+function checkEmpty() {
+    if (followerNames.length === 0) {
+        $('#textNotFollowing').text("No Followers yet!");
+    } else if (followersNotFollowing.length === 0) {
+        $('#textNotFollowing').text("All followers are followed back by the user!");
+    } else {
+        $('#textNotFollowing').text("Here are the followers, but this user hasn't followed them.");
+    }
+
+    if (followerNames.length === 0) {
+        $('#textNotFollowers').text("No followings yet!");
+    } else if (followingNotFollowers.length === 0) {
+        $('#textNotFollowers').text("The user is followed back by all followers!");
+    } else {
+        $('#textNotFollowers').text("Here are the followings, but they are not following this user.");
+    }
+}
+
 // all followers
-function displayFollowersDiv(){
+function displayFollowersDiv() {
     console.log("loading followers");
     const followersDiv = $('#followers-div');
     const paginationDiv = $('#pagination-followers-div');
@@ -260,7 +277,7 @@ function changePageFollowers(page) {
 }
 
 // all followings
-function displayFollowingsDiv(){
+function displayFollowingsDiv() {
     console.log("loading followings");
     const followingsDiv = $('#followings-div');
     const paginationDiv = $('#pagination-followings-div');
@@ -312,7 +329,7 @@ function displayFollowersNotFollowing() {
     const followersNotFollowingDiv = $('#followers-but-not-Following');
     const paginationDiv = $('#pagination-followers-but-not-Following');
 
-    const followersNotFollowing = followerNames.filter(name => !followingNames.includes(name));
+
 
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -359,12 +376,9 @@ function displayFollowingNotFollowers() {
     const followingNotFollowersDiv = $('#Following-but-not-followers');
     const paginationDiv = $('#pagination-Following-but-not-followers');
 
-    const followingNotFollowers = followingNames.filter(name => !followerNames.includes(name));
-
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const displayedFollowings = followingNotFollowers.slice(startIndex, endIndex);
-
 
     $('#following-not-followers-count').text(followingNotFollowers.length);
 
