@@ -29,6 +29,15 @@ $(document).ready(function () {
         $('#github-username').focus();
     });
 
+    // btnFollowers
+    $('#btnFollowers').click(function () {
+        //displayFollowersDiv();
+    });
+
+    // btnFollowings
+    $('#btnFollowings').click(function () {
+        console.log("Clicked");
+    });
 });
 
 ////////// Error //////////
@@ -107,8 +116,11 @@ function authenticateAndFetchData(username, token) {
                             followerNames = followers.map(follower => follower.login);
                             followingNames = followings.map(following => following.login);
 
-                            displayFollowersNotFollowing(followerNames, followingNames);
-                            displayFollowingNotFollowers(followerNames, followingNames);
+                            displayFollowersNotFollowing();
+                            displayFollowingNotFollowers();
+
+                            displayFollowersDiv();
+                            displayFollowingsDiv()
                         })
                         .catch(error => {
                             initialView();
@@ -199,6 +211,103 @@ function displayFollowing(followings) {
     $('#following').text(followings.length);
 }
 
+// all followers
+function displayFollowersDiv(){
+    console.log("loading followers");
+    const followersDiv = $('#followers-div');
+    const paginationDiv = $('#pagination-followers-div');
+
+    const followers = followerNames;
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const displayedFollowers = followers.slice(startIndex, endIndex);
+
+    $('#allFollowersCount').text(followerNames.length);
+
+    // Create a list of profile picture and name elements
+    const profilesList = displayedFollowers.map(name => {
+        const avatarUrl = `https://github.com/${name}.png`;
+        const githubProfileUrl = `https://github.com/${name}`;
+
+        return `
+        <a href="${githubProfileUrl}" target="_blank">
+        <div class="userDataDiv">
+                <img src="${avatarUrl}" alt="${name}'s Avatar" width="50" height="50">
+                <p>${name}</p>
+        </div>
+        </a>`;
+    });
+
+    followersDiv.html(profilesList.join(''));
+
+    // Pagination Followers
+    const totalPages = Math.ceil(followers.length / itemsPerPage);
+    const paginationButtons = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+    const paginationHtml = paginationButtons.map(page => {
+        const activeClass = page === currentPage ? 'active' : '';
+        return `<button class="m-1 btn btn-sm btn-outline-success ${activeClass}
+        " onclick="changePageFollowers(${page})">${page}</button>`;
+    }).join('');
+
+    paginationDiv.html(paginationHtml);
+}
+
+function changePageFollowers(page) {
+    currentPage = page;
+    displayFollowersDiv();
+}
+
+// all followings
+function displayFollowingsDiv(){
+    console.log("loading followings");
+    const followingsDiv = $('#followings-div');
+    const paginationDiv = $('#pagination-followings-div');
+
+    const followings = followingNames;
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const displayedFollowings = followings.slice(startIndex, endIndex);
+
+    $('#allFollowingsCount').text(followingNames.length);
+
+    // Create a list of profile picture and name elements
+    const profilesList = displayedFollowings.map(name => {
+        const avatarUrl = `https://github.com/${name}.png`;
+        const githubProfileUrl = `https://github.com/${name}`;
+
+        return `
+        <a href="${githubProfileUrl}" target="_blank">
+        <div class="userDataDiv">
+                <img src="${avatarUrl}" alt="${name}'s Avatar" width="50" height="50">
+                <p>${name}</p>
+        </div>
+        </a>`;
+    });
+
+    followingsDiv.html(profilesList.join(''));
+
+    // Pagination Followings
+    const totalPages = Math.ceil(followings.length / itemsPerPage);
+    const paginationButtons = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+    const paginationHtml = paginationButtons.map(page => {
+        const activeClass = page === currentPage ? 'active' : '';
+        return `<button class="m-1 btn btn-sm btn-outline-success ${activeClass}
+        " onclick="changePageFollowings(${page})">${page}</button>`;
+    }).join('');
+
+    paginationDiv.html(paginationHtml);
+}
+
+function changePageFollowings(page) {
+    currentPage = page;
+    displayFollowingsDiv();
+}
+
+// followers Not Following
 function displayFollowersNotFollowing() {
     const followersNotFollowingDiv = $('#followers-but-not-Following');
     const paginationDiv = $('#pagination-followers-but-not-Following');
@@ -245,7 +354,7 @@ function changePageFollowersNotFollowing(page) {
     displayFollowersNotFollowing();
 }
 
-
+// following Not Followers
 function displayFollowingNotFollowers() {
     const followingNotFollowersDiv = $('#Following-but-not-followers');
     const paginationDiv = $('#pagination-Following-but-not-followers');

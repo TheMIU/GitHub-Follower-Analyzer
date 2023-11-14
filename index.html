@@ -56,8 +56,8 @@
         <div class="d-flex align-items-center justify-content-center"
             style="position: fixed; width: 100%; height: 100%; z-index: 100;">
 
-            <form id="github-form" class="col-lg-4 dark-container">
-                <div class="m-3">
+            <form id="github-form" class="col-lg-4 dark-container m-3">
+                <div class="m-1">
                     <p class="mb-2 text-center" style="color: rgb(252, 252, 252);">Type GitHub Token and Username</p>
                     <div class="form-group row">
                         <input type="text" class="form-control dark-input" id="github-token" placeholder="Github Token"
@@ -109,7 +109,8 @@
                         <div class="row">
                             <!-- followers -->
                             <div class="col-lg-6 m-0">
-                                <button class="btn btn-outline-success btn-sm w-100 d-block bg-transparent"
+                                <button id="btnFollowers"
+                                    class="btn btn-outline-success btn-sm w-100 d-block bg-transparent"
                                     data-bs-toggle="modal" data-bs-target="#allFollowersModal">
                                     <p style="color: chartreuse; margin:0" class="mr-3">
                                         <i class="fas fa-users"></i> Followers
@@ -121,7 +122,8 @@
 
                             <!-- followings -->
                             <div class="col-lg-6 m-0">
-                                <button class="btn btn-outline-success btn-sm w-100 d-block bg-transparent"
+                                <button id="btnFollowings"
+                                    class="btn btn-outline-success btn-sm w-100 d-block bg-transparent"
                                     data-bs-toggle="modal" data-bs-target="#allFollowingsModal">
                                     <p style="color: chartreuse;  margin:0" class="mr-3"> <i class="fas fa-users"></i>
                                         Following <span id="following"
@@ -206,12 +208,16 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content bg-black text-white">
                 <div class="modal-header">
-                    <h6 class="modal-title"><i class="fas fa-users"></i> All Followers </h6>
+                    <h6 style="color: chartreuse;" class="modal-title"><i class="fas fa-users"></i> All Followers
+                        <span style="color: white;" id="allFollowersCount"></span>
+                    </h6>
                     <i class="fa-regular fa-circle-xmark" type="button" data-bs-dismiss="modal" aria-label="Close"></i>
                 </div>
                 <div class="modal-body">
-                    <div id="Following-but-not-followers" style="font-size: smaller;"></div>
-                    <div id="pagination-Following-but-not-followers"></div>
+                    <div id="followers-div" style="font-size: smaller;"> all followers </div>
+                </div>
+                <div class="modal-footer">
+                    <div id="pagination-followers-div"> pagination </div>
                 </div>
             </div>
         </div>
@@ -222,12 +228,16 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content bg-black text-white">
                 <div class="modal-header">
-                    <h6 class="modal-title"><i class="fas fa-users"></i> All Followings </h6>
+                    <h6 style="color: chartreuse;" class="modal-title"><i class="fas fa-users"></i> All Followings
+                        <span style="color: white;" id="allFollowingsCount"></span>
+                    </h6>
                     <i class="fa-regular fa-circle-xmark" type="button" data-bs-dismiss="modal" aria-label="Close"></i>
                 </div>
                 <div class="modal-body">
-                    <div id="Following-but-not-followers" style="font-size: smaller;"></div>
-                    <div id="pagination-Following-but-not-followers"></div>
+                    <div id="followings-div" style="font-size: smaller;"> all followings </div>
+                </div>
+                <div class="modal-footer">
+                    <div id="pagination-followings-div"> pagination </div>
                 </div>
             </div>
         </div>
