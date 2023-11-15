@@ -1,4 +1,3 @@
-let githubToken;
 let githubUsername;
 
 let followerNames = [];
@@ -16,12 +15,9 @@ $(document).ready(function () {
         showLoading();
         $('#form').hide();
 
-        //githubToken = $('#github-token').val();
         githubUsername = $('#github-username').val();
 
-        console.log("githubToken : " + githubToken + "  githubUsername : " + githubUsername);
-
-        authenticateAndFetchData(githubUsername, githubToken);
+        authenticateAndFetchData(githubUsername);
     });
 
     // search new user
@@ -93,19 +89,16 @@ function hideLoading() {
 //$('#loading-container').hide();
 
 ////////// fetch followers data //////////
-function authenticateAndFetchData(username, token) {
+function authenticateAndFetchData(username) {
     // Authenticate using the provided token
     fetch(`https://api.github.com/users/${username}`, {
-        /* headers: {
-            'Authorization': `token ${token}`
-        } */
+
     })
         .then(response => response.json())
         .then(user => {
-            // token and make AJAX requests with it
-            fetchAllFollowers(username, token)
+            fetchAllFollowers(username)
                 .then(followers => {
-                    fetchAllFollowings(username, token)
+                    fetchAllFollowings(username)
                         .then(followings => {
                             console.log(user);
 
@@ -165,9 +158,6 @@ async function fetchPaginatedData(url) {
 
     do {
         response = await fetch(url + `?page=${page}&per_page=100`, {
-           /*  headers: {
-                'Authorization': `token ${githubToken}`
-            } */
         });
 
         if (!response.ok) {

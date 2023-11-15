@@ -58,11 +58,13 @@
 
             <form id="github-form" class="col-lg-4 dark-container m-3">
                 <div class="m-1">
-                    <p class="mb-2 text-center" style="color: rgb(252, 252, 252);">Type GitHub Token and Username</p>
-                    <div class="form-group row">
-                        <input type="text" class="form-control dark-input" id="github-token" placeholder="Github Token"
-                            name="github-token" required>
+                    <div class="col text-center">
+                        <p>
+                            <img src="img/fav.ico" width="20%" alt="user profile">
+                        </p>
+                        <p class="mb-2" style="color: rgb(252, 252, 252);">Type GitHub Username</p>
                     </div>
+
                     <div class="form-group row">
                         <input type="text" class="form-control dark-input" id="github-username"
                             placeholder="Github Username" name="github-username" required>
@@ -98,7 +100,8 @@
                         <div class="row d-flex justify-content-center">
                             <div class="col d-inline text-center">
                                 <p>
-                                    <img id="userImage" src="img/fav.ico" width="20%" alt="user profile">
+                                    <img id="userImage" src="img/fav.ico" width="20%" style="border-radius: 50%; "
+                                        alt="user profile">
                                 </p>
                                 <span id="userName"> Username</span>
                             </div>
