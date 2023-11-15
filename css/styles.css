@@ -67,3 +67,23 @@ a:hover {
     text-decoration: none;
     color: inherit;
 }
+
+/* summary table */
+table {
+    font-size:small ;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    text-align: left;
+}
+
+td:last-child {
+    text-align: right;
+}
+
+ /* Modal outline */
+.modal-content {
+    outline: 1px solid  chartreuse;
+}

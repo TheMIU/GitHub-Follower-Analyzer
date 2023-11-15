@@ -138,9 +138,52 @@
 
                         <hr class="bg-success">
 
-                        <div id="summary" class="row">
-                            <p>Summary</p>
-                        </div>
+                        <!-- summary -->
+                        <table id="summary">
+                            <tr style="color: chartreuse;">
+                                <td>Total Followers</td>
+                                <td>:</td>
+                                <td id="summary-total-followers">100</td>
+                            </tr>
+                            <tr>
+                                <td>Followed Back</td>
+                                <td>:</td>
+                                <td id="summary-followed-back">80</td>
+                            </tr>
+                            <tr>
+                                <td>Not Followed Back</td>
+                                <td>:</td>
+                                <td id="summary-not-followed-back">20</td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <hr class="bg-success">
+                                </td>
+                                <td>
+                                    <hr class="bg-success">
+                                </td>
+                                <td>
+                                    <hr class="bg-success">
+                                </td>
+                            </tr>
+
+                            <tr style="color: chartreuse;">
+                                <td>Total Followings</td>
+                                <td>:</td>
+                                <td id="summary-total-followings">150</td>
+                            </tr>
+                            <tr>
+                                <td>Followings Who Follow Back</td>
+                                <td>:</td>
+                                <td id="summary-followings-who-follow-back">120</td>
+                            </tr>
+                            <tr>
+                                <td>Followings Not Followed Back</td>
+                                <td>:</td>
+                                <td id="summary-followings-not-followed-back">30</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
 
@@ -201,8 +244,8 @@
     </footer>
 
     <!-- allFollowers Modal -->
-    <div id="allFollowersModal" class="modal" data-bs-backdrop="static" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
+    <div id="allFollowersModal" class="modal bg-black bg-opacity-75" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content bg-black text-white">
                 <div class="modal-header">
                     <h6 style="color: chartreuse;" class="modal-title"><i class="fas fa-users"></i> All Followers
@@ -221,8 +264,8 @@
     </div>
 
     <!-- allFollowings Modal -->
-    <div id="allFollowingsModal" class="modal" data-bs-backdrop="static" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
+    <div id="allFollowingsModal" class="modal bg-black bg-opacity-75" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content bg-black text-white">
                 <div class="modal-header">
                     <h6 style="color: chartreuse;" class="modal-title"><i class="fas fa-users"></i> All Followings

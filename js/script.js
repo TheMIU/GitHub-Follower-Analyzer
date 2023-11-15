@@ -117,6 +117,7 @@ function authenticateAndFetchData(username) {
                             followingNotFollowers = followingNames.filter(name => !followerNames.includes(name));
 
                             checkEmpty();
+                            updateSummary();
 
                             displayFollowersNotFollowing();
                             displayFollowingNotFollowers();
@@ -231,6 +232,8 @@ function checkEmpty() {
 
 // all followers
 function displayFollowersDiv() {
+    let itemsPerPage = 20;
+
     console.log("loading followers");
     const followersDiv = $('#followers-div');
     const paginationDiv = $('#pagination-followers-div');
@@ -279,6 +282,8 @@ function changePageFollowers(page) {
 
 // all followings
 function displayFollowingsDiv() {
+    let itemsPerPage = 20;
+
     console.log("loading followings");
     const followingsDiv = $('#followings-div');
     const paginationDiv = $('#pagination-followings-div');
@@ -329,8 +334,6 @@ function changePageFollowings(page) {
 function displayFollowersNotFollowing() {
     const followersNotFollowingDiv = $('#followers-but-not-Following');
     const paginationDiv = $('#pagination-followers-but-not-Following');
-
-
 
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -416,4 +419,16 @@ function displayFollowingNotFollowers() {
 function changePageFollowingNotFollowers(page) {
     currentPage = page;
     displayFollowingNotFollowers()
+}
+
+
+////////// summary //////////
+function updateSummary() {
+    $('#summary-total-followers').text(followerNames.length);
+    $('#summary-followed-back').text(followerNames.length - followersNotFollowing.length);
+    $('#summary-not-followed-back').text(followersNotFollowing.length);
+
+    $('#summary-total-followings').text(followingNames.length);
+    $('#summary-followings-who-follow-back').text(followingNames.length - followingNotFollowers.length);
+    $('#summary-followings-not-followed-back').text(followingNotFollowers.length);
 }
