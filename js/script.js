@@ -16,7 +16,7 @@ $(document).ready(function () {
         showLoading();
         $('#form').hide();
 
-        githubToken = $('#github-token').val();
+        //githubToken = $('#github-token').val();
         githubUsername = $('#github-username').val();
 
         console.log("githubToken : " + githubToken + "  githubUsername : " + githubUsername);
@@ -95,10 +95,10 @@ function hideLoading() {
 ////////// fetch followers data //////////
 function authenticateAndFetchData(username, token) {
     // Authenticate using the provided token
-    fetch('https://api.github.com/user', {
-        headers: {
+    fetch(`https://api.github.com/users/${username}`, {
+        /* headers: {
             'Authorization': `token ${token}`
-        }
+        } */
     })
         .then(response => response.json())
         .then(user => {
@@ -107,6 +107,11 @@ function authenticateAndFetchData(username, token) {
                 .then(followers => {
                     fetchAllFollowings(username, token)
                         .then(followings => {
+                            console.log(user);
+
+                            $('#userImage').attr('src', user.avatar_url);
+                            $('#userName').text(user.login);
+
                             hideLoading();
 
                             displayFollowers(followers);
@@ -160,9 +165,9 @@ async function fetchPaginatedData(url) {
 
     do {
         response = await fetch(url + `?page=${page}&per_page=100`, {
-            headers: {
+           /*  headers: {
                 'Authorization': `token ${githubToken}`
-            }
+            } */
         });
 
         if (!response.ok) {
@@ -225,7 +230,7 @@ function checkEmpty() {
         $('#textNotFollowing').text("Here are the followers, but this user hasn't followed them.");
     }
 
-    if (followerNames.length === 0) {
+    if (followingNames.length === 0) {
         $('#textNotFollowers').text("No followings yet!");
     } else if (followingNotFollowers.length === 0) {
         $('#textNotFollowers').text("The user is followed back by all followers!");
