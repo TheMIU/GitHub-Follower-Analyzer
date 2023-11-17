@@ -5,6 +5,8 @@ How many users follow you, and how many are you following back? It's easy to che
 
 <b><i>But what about those you followed that aren't following you back? Or those you missed following back? </i></b>
 
+<img src='https://github.com/TheMIU/GitHub-Follower-Analyzer/blob/main/preview.png?raw=true' alt='preview'>
+
 ## Overview
 This application simplifies the analysis you can't easily do through your GitHub profile. It's designed to help you:
 
