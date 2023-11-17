@@ -86,8 +86,6 @@ function hideLoading() {
     $('#searchNew').show();
 }
 
-//$('#loading-container').hide();
-
 ////////// fetch followers data //////////
 function authenticateAndFetchData(username) {
     // Authenticate using the provided token
@@ -100,7 +98,7 @@ function authenticateAndFetchData(username) {
                 .then(followers => {
                     fetchAllFollowings(username)
                         .then(followings => {
-                            console.log(user);
+                            //console.log(user);
 
                             $('#userImage').attr('src', user.avatar_url);
                             $('#userName').text(user.login);
@@ -202,12 +200,12 @@ function extractNextLink(linkHeader) {
 
 ////////// display data //////////
 function displayFollowers(followers) {
-    console.log(followers);
+    //console.log(followers);
     $('#followers').text(followers.length);
 }
 
 function displayFollowing(followings) {
-    console.log(followings);
+    //console.log(followings);
     $('#following').text(followings.length);
 }
 
@@ -234,7 +232,6 @@ function checkEmpty() {
 function displayFollowersDiv() {
     let itemsPerPage = 20;
 
-    console.log("loading followers");
     const followersDiv = $('#followers-div');
     const paginationDiv = $('#pagination-followers-div');
 
@@ -284,7 +281,6 @@ function changePageFollowers(page) {
 function displayFollowingsDiv() {
     let itemsPerPage = 20;
 
-    console.log("loading followings");
     const followingsDiv = $('#followings-div');
     const paginationDiv = $('#pagination-followings-div');
 

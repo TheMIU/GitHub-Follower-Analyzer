@@ -87,3 +87,17 @@ td:last-child {
 .modal-content {
     outline: 1px solid  chartreuse;
 }
+
+/* custom scrollbar */
+*::-webkit-scrollbar {
+    width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #00000025;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(150, 150, 150, 0.5);
+    border-radius: 5px;
+}
