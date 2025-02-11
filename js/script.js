@@ -145,6 +145,7 @@ async function fetchPaginatedData(url, accessToken) {
             response = await fetch(url + `?page=${page}&per_page=100`, {
                 headers: {
                     "Authorization": `Bearer ${accessToken}`,
+                    "X-GitHub-Api-Version": "2022-11-28"
                 }
             });
         }
