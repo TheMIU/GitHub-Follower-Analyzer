@@ -16,8 +16,9 @@ $(document).ready(function () {
         $('#form').hide();
 
         githubUsername = $('#github-username').val();
+        githubFineGrainAccessToken = $('#github-access-token').val();
 
-        authenticateAndFetchData(githubUsername);
+        authenticateAndFetchData(githubUsername, githubFineGrainAccessToken);
     });
 
     // search new user
@@ -87,13 +88,13 @@ function hideLoading() {
 }
 
 ////////// fetch followers data //////////
-async function authenticateAndFetchData(username) {
+async function authenticateAndFetchData(username, accessToken) {
     try {
         const userResponse = await fetch(`https://api.github.com/users/${username}`);
         const user = await userResponse.json();
 
-        const followers = await fetchAllFollowers(username);
-        const followings = await fetchAllFollowings(username);
+        const followers = await fetchAllFollowers(username, accessToken);
+        const followings = await fetchAllFollowings(username, accessToken);
 
         $('#userImage').attr('src', user.avatar_url);
         $('#userName').text(user.login);
@@ -124,22 +125,30 @@ async function authenticateAndFetchData(username) {
     }
 }
 
-function fetchAllFollowers(username) {
-    return fetchPaginatedData(`https://api.github.com/users/${username}/followers`);
+function fetchAllFollowers(username, accessToken) {
+    return fetchPaginatedData(`https://api.github.com/users/${username}/followers`, accessToken);
 }
 
-function fetchAllFollowings(username) {
-    return fetchPaginatedData(`https://api.github.com/users/${username}/following`);
+function fetchAllFollowings(username, accessToken) {
+    return fetchPaginatedData(`https://api.github.com/users/${username}/following`, accessToken);
 }
 
-async function fetchPaginatedData(url) {
+async function fetchPaginatedData(url, accessToken) {
     let allData = [];
     let page = 1;
     let response;
 
     do {
-        response = await fetch(url + `?page=${page}&per_page=100`, {
-        });
+        if (accessToken === "") {
+            response = await fetch(url + `?page=${page}&per_page=100`, { });
+        } else {
+            response = await fetch(url + `?page=${page}&per_page=100`, {
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`,
+                    "X-GitHub-Api-Version": "2022-11-28"
+                }
+            });
+        }
 
         if (!response.ok) {
             throw new Error(`Request failed with status ${response.status}`);
@@ -275,7 +284,7 @@ function displayFollowingsDiv() {
 }
 
 function displayFollowersNotFollowing() {
-    const itemsPerPage = 8;
+    const itemsPerPage = 100;
     displayDataDiv(
         followersNotFollowing,
         '#followers-not-following-count',
@@ -290,7 +299,7 @@ function displayFollowersNotFollowing() {
 }
 
 function displayFollowingNotFollowers() {
-    const itemsPerPage = 8;
+    const itemsPerPage = 100;
     displayDataDiv(
         followingNotFollowers,
         '#following-not-followers-count',
