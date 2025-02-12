@@ -2,11 +2,12 @@ let githubUsername;
 
 let followerNames = [];
 let followingNames = [];
+let followersFollowingNames = [];
 let currentPage = 1;
-const itemsPerPage = 8;
 
 let followersNotFollowing = [];
 let followingNotFollowers = [];
+let followersFollowing = [];
 
 $(document).ready(function () {
     $('#github-form').submit(function (event) {
@@ -61,6 +62,7 @@ function initialView() {
     $('#summary').hide();
     $('#followers-not-following-div').hide();
     $('#following-not-followers-div').hide();
+    $('#followers-following-div').hide();
     $('#loading-container').hide();
     $('#searchNew').hide();
 }
@@ -73,6 +75,7 @@ function showLoading() {
     $('#summary').hide();
     $('#followers-not-following-div').hide();
     $('#following-not-followers-div').hide();
+    $('#followers-following-div').hide();
     $('#searchNew').hide();
 }
 
@@ -84,6 +87,7 @@ function hideLoading() {
     $('#summary').show();
     $('#followers-not-following-div').show();
     $('#following-not-followers-div').show();
+    $('#followers-following-div').show();
     $('#searchNew').show();
 }
 
@@ -108,15 +112,19 @@ async function authenticateAndFetchData(username, accessToken) {
 
         followersNotFollowing = followerNames.filter(name => !followingNames.includes(name));
         followingNotFollowers = followingNames.filter(name => !followerNames.includes(name));
+        followersFollowing = followerNames.filter(name => followingNames.includes(name));
+        followersFollowingNames = followersFollowing;
 
         checkEmpty();
         updateSummary();
 
         displayFollowersNotFollowing();
         displayFollowingNotFollowers();
+        displayFollowersFollowing();
 
         displayFollowersDiv();
         displayFollowingsDiv();
+        displayFollowersFollowingDiv();
 
     } catch (error) {
         initialView();
@@ -220,7 +228,7 @@ function checkEmpty() {
 }
 
 // display data 
-function displayDataDiv(data, totalCountElement, currentPageElement, itemsPerPage, displayDiv, paginationDiv, paginatedArray, totalCountElementId, changePageFunction) {
+function displayDataDiv(totalCountElement, currentPageElement, itemsPerPage, displayDiv, paginationDiv, paginatedArray, totalCountElementId, changePageFunction) {
     const startIndex = (currentPageElement - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const displayedData = paginatedArray.slice(startIndex, endIndex);
@@ -256,7 +264,6 @@ function displayDataDiv(data, totalCountElement, currentPageElement, itemsPerPag
 function displayFollowersDiv() {
     const itemsPerPage = 20;
     displayDataDiv(
-        followerNames,
         '#allFollowersCount',
         currentPage,
         itemsPerPage,
@@ -271,7 +278,6 @@ function displayFollowersDiv() {
 function displayFollowingsDiv() {
     const itemsPerPage = 20;
     displayDataDiv(
-        followingNames,
         '#allFollowingsCount',
         currentPage,
         itemsPerPage,
@@ -283,10 +289,23 @@ function displayFollowingsDiv() {
     );
 }
 
+function displayFollowersFollowingDiv() {
+    const itemsPerPage = 20;
+    displayDataDiv(
+        '#allFollowersFollowingCount',
+        currentPage,
+        itemsPerPage,
+        $('#followersfollowing-div'),
+        $('#pagination-followersfollowing-div'),
+        followingNames,
+        '#allFollowersFollowingCount',
+        'changePageFollowersFollowing'
+    );
+}
+
 function displayFollowersNotFollowing() {
     const itemsPerPage = 100;
     displayDataDiv(
-        followersNotFollowing,
         '#followers-not-following-count',
         currentPage,
         itemsPerPage,
@@ -301,7 +320,6 @@ function displayFollowersNotFollowing() {
 function displayFollowingNotFollowers() {
     const itemsPerPage = 100;
     displayDataDiv(
-        followingNotFollowers,
         '#following-not-followers-count',
         currentPage,
         itemsPerPage,
@@ -310,6 +328,20 @@ function displayFollowingNotFollowers() {
         followingNotFollowers,
         '#following-not-followers-count',
         'changePageFollowingNotFollowers'
+    );
+}
+
+function displayFollowersFollowing() {
+    const itemsPerPage = 100;
+    displayDataDiv(
+        '#followers-following-count',
+        currentPage,
+        itemsPerPage,
+        $('#followers-following'),
+        $('#pagination-followers-following'),
+        followersFollowing,
+        '#follows-following-count',
+        'changePageFollowersFollowing'
     );
 }
 
@@ -331,6 +363,11 @@ function changePageFollowersNotFollowing(page) {
 function changePageFollowingNotFollowers(page) {
     currentPage = page;
     displayFollowingNotFollowers();
+}
+
+function changePageFollowersFollowing(page) {
+    currentPage = page;
+    displayFollowersFollowing();
 }
 
 ////////// summary //////////
