@@ -3,6 +3,7 @@ let githubUsername;
 let followerNames = [];
 let followingNames = [];
 let followersFollowingNames = [];
+
 let currentPage = 1;
 
 let followersNotFollowing = [];
@@ -225,6 +226,8 @@ function checkEmpty() {
     } else {
         $('#textNotFollowers').text("Here are the followings, but they are not following this user.");
     }
+
+    $('#textFollowersFollowing').text("Here are the followers who follow back.");
 }
 
 // display data 
