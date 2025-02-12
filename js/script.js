@@ -33,10 +33,10 @@ $(document).ready(function () {
 });
 
 ////////// Error //////////
-function showError() {
+function showError(error) {
     Swal.fire({
         title: 'Error fetching data!',
-        text: 'check username and token',
+        text: 'check username and token. Message: ' + error.message,
         icon: 'error',
         confirmButtonText: 'ok',
         buttonsStyling: false,
@@ -132,7 +132,7 @@ async function authenticateAndFetchData(username, accessToken) {
     } catch (error) {
         initialView();
         console.error('Error:', error);
-        showError();
+        showError(error);
     }
 }
 
@@ -149,14 +149,22 @@ async function fetchPaginatedData(url, accessToken) {
     let page = 1;
     let response;
 
+    url += `?page=${page}&per_page=100`;
+
     do {
         if (accessToken === "") {
-            response = await fetch(url + `?page=${page}&per_page=100`, { });
+            response = await fetch(url, {
+                headers: {
+                    "X-GitHub-Api-Version": "2022-11-28",
+                    "Accept": "application/vnd.github+json"
+                }
+            });
         } else {
-            response = await fetch(url + `?page=${page}&per_page=100`, {
+            response = await fetch(url, {
                 headers: {
                     "Authorization": `Bearer ${accessToken}`,
-                    "X-GitHub-Api-Version": "2022-11-28"
+                    "X-GitHub-Api-Version": "2022-11-28",
+                    "Accept": "application/vnd.github+json"
                 }
             });
         }
