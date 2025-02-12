@@ -95,7 +95,24 @@ function hideLoading() {
 ////////// fetch followers data //////////
 async function authenticateAndFetchData(username, accessToken) {
     try {
-        const userResponse = await fetch(`https://api.github.com/users/${username}`);
+
+        let userResponse;
+        if (accessToken === "") {
+            userResponse = await fetch(`https://api.github.com/users/${username}`, {
+                headers: {
+                    "X-GitHub-Api-Version": "2022-11-28",
+                    "Accept": "application/vnd.github+json"
+                }
+            });
+        } else {
+            userResponse = await fetch(`https://api.github.com/users/${username}`, {
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`,
+                    "X-GitHub-Api-Version": "2022-11-28",
+                    "Accept": "application/vnd.github+json"
+                }
+            });
+        }
         const user = await userResponse.json();
 
         const followers = await fetchAllFollowers(username, accessToken);
