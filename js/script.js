@@ -123,6 +123,12 @@ async function authenticateAndFetchData(username, accessToken) {
         displayFollowingNotFollowers();
         displayFollowersFollowing();
 
+        $(".userDataDiv").hover(function() {
+            $(this).css("background-color", "grey");
+        }, function() {
+            $(this).css("background-color", "");
+        });
+
     } catch (error) {
         initialView();
         console.error('Error:', error);
