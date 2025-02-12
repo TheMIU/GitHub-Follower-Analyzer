@@ -123,10 +123,6 @@ async function authenticateAndFetchData(username, accessToken) {
         displayFollowingNotFollowers();
         displayFollowersFollowing();
 
-        displayFollowersDiv();
-        displayFollowingsDiv();
-        displayFollowersFollowingDiv();
-
     } catch (error) {
         initialView();
         console.error('Error:', error);
@@ -262,48 +258,6 @@ function displayDataDiv(totalCountElement, currentPageElement, itemsPerPage, dis
     }).join('');
 
     paginationDiv.html(paginationHtml);
-}
-
-function displayFollowersDiv() {
-    const itemsPerPage = 20;
-    displayDataDiv(
-        '#allFollowersCount',
-        currentPage,
-        itemsPerPage,
-        $('#followers-div'),
-        $('#pagination-followers-div'),
-        followerNames,
-        '#allFollowersCount',
-        'changePageFollowers'
-    );
-}
-
-function displayFollowingsDiv() {
-    const itemsPerPage = 20;
-    displayDataDiv(
-        '#allFollowingsCount',
-        currentPage,
-        itemsPerPage,
-        $('#followings-div'),
-        $('#pagination-followings-div'),
-        followingNames,
-        '#allFollowingsCount',
-        'changePageFollowings'
-    );
-}
-
-function displayFollowersFollowingDiv() {
-    const itemsPerPage = 20;
-    displayDataDiv(
-        '#allFollowersFollowingCount',
-        currentPage,
-        itemsPerPage,
-        $('#followersfollowing-div'),
-        $('#pagination-followersfollowing-div'),
-        followingNames,
-        '#allFollowersFollowingCount',
-        'changePageFollowersFollowing'
-    );
 }
 
 function displayFollowersNotFollowing() {
