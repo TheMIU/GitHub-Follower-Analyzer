@@ -308,16 +308,6 @@ function displayFollowersFollowing() {
     );
 }
 
-function changePageFollowers(page) {
-    currentPage = page;
-    displayFollowersDiv();
-}
-
-function changePageFollowings(page) {
-    currentPage = page;
-    displayFollowingsDiv();
-}
-
 function changePageFollowersNotFollowing(page) {
     currentPage = page;
     displayFollowersNotFollowing();
