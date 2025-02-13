@@ -187,6 +187,27 @@
                             </tr>
                         </table>
                     </div>
+
+                    <!-- followers-following -->
+                    <div id="followers-following-div" class="dark-container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <p style="color: rgb(255, 183, 0);"> <i class="fas fa-address-card"></i>
+                                        Followers Following <span id="followers-following-count"
+                                            style="font-weight: bold; color: rgb(255, 255, 255);"> </span>
+                                    </p>
+
+                                    <div id="textFollowersFollowing" style="font-size: smaller;"></div>
+
+                                    <div id="followers-following" style="font-size: smaller;"> </div>
+
+                                </div>
+                                <div class="col-lg-12">
+                                    <div id="pagination-followers-following"></div>
+                                </div>
+                            </div>
+
+                    </div>
                 </div>
 
                 <!-- followers-not-following -->
@@ -280,6 +301,26 @@
                 </div>
                 <div class="modal-footer">
                     <div id="pagination-followings-div"> pagination </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- allFollowersFollowing Modal -->
+    <div id="allFollowersFollowingModal" class="modal bg-black bg-opacity-75" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-black text-white">
+                <div class="modal-header">
+                    <h6 style="color: chartreuse;" class="modal-title"><i class="fas fa-users"></i> All Followers
+                        <span style="color: white;" id="allFollowersFollowingCount"></span>
+                    </h6>
+                    <i class="fa-regular fa-circle-xmark" type="button" data-bs-dismiss="modal" aria-label="Close"></i>
+                </div>
+                <div class="modal-body">
+                    <div id="followersfollowing-div" style="font-size: smaller;"> all followers </div>
+                </div>
+                <div class="modal-footer">
+                    <div id="pagination-followersfollowing-div"> pagination </div>
                 </div>
             </div>
         </div>

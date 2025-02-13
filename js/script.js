@@ -2,11 +2,13 @@ let githubUsername;
 
 let followerNames = [];
 let followingNames = [];
+let followersFollowingNames = [];
+
 let currentPage = 1;
-const itemsPerPage = 8;
 
 let followersNotFollowing = [];
 let followingNotFollowers = [];
+let followersFollowing = [];
 
 $(document).ready(function () {
     $('#github-form').submit(function (event) {
@@ -31,10 +33,10 @@ $(document).ready(function () {
 });
 
 ////////// Error //////////
-function showError() {
+function showError(error) {
     Swal.fire({
         title: 'Error fetching data!',
-        text: 'check username and token',
+        text: 'check username and token. Message: ' + error.message,
         icon: 'error',
         confirmButtonText: 'ok',
         buttonsStyling: false,
@@ -61,6 +63,7 @@ function initialView() {
     $('#summary').hide();
     $('#followers-not-following-div').hide();
     $('#following-not-followers-div').hide();
+    $('#followers-following-div').hide();
     $('#loading-container').hide();
     $('#searchNew').hide();
 }
@@ -73,6 +76,7 @@ function showLoading() {
     $('#summary').hide();
     $('#followers-not-following-div').hide();
     $('#following-not-followers-div').hide();
+    $('#followers-following-div').hide();
     $('#searchNew').hide();
 }
 
@@ -84,13 +88,31 @@ function hideLoading() {
     $('#summary').show();
     $('#followers-not-following-div').show();
     $('#following-not-followers-div').show();
+    $('#followers-following-div').show();
     $('#searchNew').show();
 }
 
 ////////// fetch followers data //////////
 async function authenticateAndFetchData(username, accessToken) {
     try {
-        const userResponse = await fetch(`https://api.github.com/users/${username}`);
+
+        let userResponse;
+        if (accessToken === "") {
+            userResponse = await fetch(`https://api.github.com/users/${username}`, {
+                headers: {
+                    "X-GitHub-Api-Version": "2022-11-28",
+                    "Accept": "application/vnd.github+json"
+                }
+            });
+        } else {
+            userResponse = await fetch(`https://api.github.com/users/${username}`, {
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`,
+                    "X-GitHub-Api-Version": "2022-11-28",
+                    "Accept": "application/vnd.github+json"
+                }
+            });
+        }
         const user = await userResponse.json();
 
         const followers = await fetchAllFollowers(username, accessToken);
@@ -108,20 +130,26 @@ async function authenticateAndFetchData(username, accessToken) {
 
         followersNotFollowing = followerNames.filter(name => !followingNames.includes(name));
         followingNotFollowers = followingNames.filter(name => !followerNames.includes(name));
+        followersFollowing = followerNames.filter(name => followingNames.includes(name));
+        followersFollowingNames = followersFollowing;
 
         checkEmpty();
         updateSummary();
 
         displayFollowersNotFollowing();
         displayFollowingNotFollowers();
+        displayFollowersFollowing();
 
-        displayFollowersDiv();
-        displayFollowingsDiv();
+        $(".userDataDiv").hover(function() {
+            $(this).css("background-color", "grey");
+        }, function() {
+            $(this).css("background-color", "");
+        });
 
     } catch (error) {
         initialView();
         console.error('Error:', error);
-        showError();
+        showError(error);
     }
 }
 
@@ -138,14 +166,22 @@ async function fetchPaginatedData(url, accessToken) {
     let page = 1;
     let response;
 
+    url += `?page=${page}&per_page=100`;
+
     do {
         if (accessToken === "") {
-            response = await fetch(url + `?page=${page}&per_page=100`, { });
+            response = await fetch(url, {
+                headers: {
+                    "X-GitHub-Api-Version": "2022-11-28",
+                    "Accept": "application/vnd.github+json"
+                }
+            });
         } else {
-            response = await fetch(url + `?page=${page}&per_page=100`, {
+            response = await fetch(url, {
                 headers: {
                     "Authorization": `Bearer ${accessToken}`,
-                    "X-GitHub-Api-Version": "2022-11-28"
+                    "X-GitHub-Api-Version": "2022-11-28",
+                    "Accept": "application/vnd.github+json"
                 }
             });
         }
@@ -217,10 +253,12 @@ function checkEmpty() {
     } else {
         $('#textNotFollowers').text("Here are the followings, but they are not following this user.");
     }
+
+    $('#textFollowersFollowing').text("Here are the followers who follow back.");
 }
 
 // display data 
-function displayDataDiv(data, totalCountElement, currentPageElement, itemsPerPage, displayDiv, paginationDiv, paginatedArray, totalCountElementId, changePageFunction) {
+function displayDataDiv(totalCountElement, currentPageElement, itemsPerPage, displayDiv, paginationDiv, paginatedArray, totalCountElementId, changePageFunction) {
     const startIndex = (currentPageElement - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const displayedData = paginatedArray.slice(startIndex, endIndex);
@@ -253,40 +291,9 @@ function displayDataDiv(data, totalCountElement, currentPageElement, itemsPerPag
     paginationDiv.html(paginationHtml);
 }
 
-function displayFollowersDiv() {
-    const itemsPerPage = 20;
-    displayDataDiv(
-        followerNames,
-        '#allFollowersCount',
-        currentPage,
-        itemsPerPage,
-        $('#followers-div'),
-        $('#pagination-followers-div'),
-        followerNames,
-        '#allFollowersCount',
-        'changePageFollowers'
-    );
-}
-
-function displayFollowingsDiv() {
-    const itemsPerPage = 20;
-    displayDataDiv(
-        followingNames,
-        '#allFollowingsCount',
-        currentPage,
-        itemsPerPage,
-        $('#followings-div'),
-        $('#pagination-followings-div'),
-        followingNames,
-        '#allFollowingsCount',
-        'changePageFollowings'
-    );
-}
-
 function displayFollowersNotFollowing() {
     const itemsPerPage = 100;
     displayDataDiv(
-        followersNotFollowing,
         '#followers-not-following-count',
         currentPage,
         itemsPerPage,
@@ -301,7 +308,6 @@ function displayFollowersNotFollowing() {
 function displayFollowingNotFollowers() {
     const itemsPerPage = 100;
     displayDataDiv(
-        followingNotFollowers,
         '#following-not-followers-count',
         currentPage,
         itemsPerPage,
@@ -313,14 +319,18 @@ function displayFollowingNotFollowers() {
     );
 }
 
-function changePageFollowers(page) {
-    currentPage = page;
-    displayFollowersDiv();
-}
-
-function changePageFollowings(page) {
-    currentPage = page;
-    displayFollowingsDiv();
+function displayFollowersFollowing() {
+    const itemsPerPage = 100;
+    displayDataDiv(
+        '#followers-following-count',
+        currentPage,
+        itemsPerPage,
+        $('#followers-following'),
+        $('#pagination-followers-following'),
+        followersFollowing,
+        '#follows-following-count',
+        'changePageFollowersFollowing'
+    );
 }
 
 function changePageFollowersNotFollowing(page) {
@@ -331,6 +341,11 @@ function changePageFollowersNotFollowing(page) {
 function changePageFollowingNotFollowers(page) {
     currentPage = page;
     displayFollowingNotFollowers();
+}
+
+function changePageFollowersFollowing(page) {
+    currentPage = page;
+    displayFollowersFollowing();
 }
 
 ////////// summary //////////
