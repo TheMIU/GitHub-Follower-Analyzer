@@ -2,13 +2,11 @@ let githubUsername;
 
 let followerNames = [];
 let followingNames = [];
-let followersFollowingNames = [];
-
-let currentPage = 1;
-
 let followersNotFollowing = [];
 let followingNotFollowers = [];
 let followersFollowing = [];
+
+let currentPage = 1;
 
 $(document).ready(function () {
     $('#github-form').submit(function (event) {
@@ -29,6 +27,26 @@ $(document).ready(function () {
 
         $('#github-username').val('');
         $('#github-username').focus();
+    });
+
+    $('#btnDownloadJSON').click(function () {
+        // build up sorted followers data object and save as json
+        let userData = [
+            { "user": githubUsername },
+            { "followers": followerNames.sort() },
+            { "following": followingNames.sort() },
+            { "followersFollowing" : followersFollowing.sort() },
+            { "followingNotFollowers" : followingNotFollowers.sort() },
+            { "followersNotFollowing" : followersNotFollowing.sort() }
+        ];
+
+        let jsonFollowers = JSON.stringify(userData);
+        let blob = new Blob([jsonFollowers]);
+        let date = new Date().toLocaleDateString().replaceAll('/', '-');
+        let link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = `${githubUsername}_followers_${date}.txt`;
+        link.click();
     });
 });
 
@@ -131,7 +149,6 @@ async function authenticateAndFetchData(username, accessToken) {
         followersNotFollowing = followerNames.filter(name => !followingNames.includes(name));
         followingNotFollowers = followingNames.filter(name => !followerNames.includes(name));
         followersFollowing = followerNames.filter(name => followingNames.includes(name));
-        followersFollowingNames = followersFollowing;
 
         checkEmpty();
         updateSummary();
