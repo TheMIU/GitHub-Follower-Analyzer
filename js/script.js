@@ -29,6 +29,29 @@ $(document).ready(function () {
         $('#github-username').focus();
     });
 
+    $('#btnSortIDAsc').click(function () {
+        followerNames.sort(sortID);
+        followingNames.sort(sortID);
+        followersNotFollowing.sort(sortID);
+        followingNotFollowers.sort(sortID);
+        followersFollowing.sort(sortID);
+        currentPage = 1;
+        displayFollowersNotFollowing();
+        displayFollowingNotFollowers();
+        displayFollowersFollowing();
+    });
+
+    $('#btnSortIDDesc').click(function () {
+        followerNames.sort(sortID).reverse();
+        followingNames.sort(sortID).reverse();
+        followersNotFollowing.sort(sortID).reverse();
+        followingNotFollowers.sort(sortID).reverse();
+        followersFollowing.sort(sortID).reverse();
+        currentPage = 1;
+        displayFollowersNotFollowing();
+        displayFollowingNotFollowers();
+        displayFollowersFollowing();
+    });
 
     $('#btnSortAsc').click(function () {
         followerNames.sort(sortIgnoreCase);
@@ -76,7 +99,11 @@ $(document).ready(function () {
 });
 
 function sortIgnoreCase(a, b) {
-  return a.toLowerCase().localeCompare(b.toLowerCase());
+  return a.login.toLowerCase().localeCompare(b.login.toLowerCase());
+}
+
+function sortID(a, b) {
+  return a.id - b.id;
 }
 
 ////////// Error //////////
@@ -172,12 +199,12 @@ async function authenticateAndFetchData(username, accessToken) {
         displayFollowers(followers);
         displayFollowing(followings);
 
-        followerNames = followers.map(follower => follower.login);
-        followingNames = followings.map(following => following.login);
+        followerNames = followers.map(follower => ({login: follower.login, id: follower.id}));
+        followingNames = followings.map(following => ({login: following.login, id: following.id}));
 
-        followersNotFollowing = followerNames.filter(name => !followingNames.includes(name));
-        followingNotFollowers = followingNames.filter(name => !followerNames.includes(name));
-        followersFollowing = followerNames.filter(name => followingNames.includes(name));
+        followersNotFollowing = followerNames.filter(name => !followingNames.map(x => x.login).includes(name.login));
+        followingNotFollowers = followingNames.filter(name => !followerNames.map(x => x.login).includes(name.login));
+        followersFollowing = followerNames.filter(name => followingNames.map(x => x.login).includes(name.login));
 
         checkEmpty();
         updateSummary();
@@ -312,14 +339,14 @@ function displayDataDiv(totalCountElement, currentPageElement, itemsPerPage, dis
     $(totalCountElement).text(paginatedArray.length);
 
     const profilesList = displayedData.map(name => {
-        const avatarUrl = `https://github.com/${name}.png`;
-        const githubProfileUrl = `https://github.com/${name}`;
+        const avatarUrl = `https://github.com/${name.login}.png`;
+        const githubProfileUrl = `https://github.com/${name.login}`;
 
         return `
         <a href="${githubProfileUrl}" target="_blank">
             <div class="userDataDiv">
-                <img src="${avatarUrl}" alt="${name}'s Avatar" width="50" height="50">
-                <p>${name}</p>
+                <img src="${avatarUrl}" alt="${name.login}'s Avatar" width="50" height="50">
+                <p>${name.login}</p>
             </div>
         </a>`;
     });
