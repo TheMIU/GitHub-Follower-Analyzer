@@ -213,12 +213,6 @@ async function authenticateAndFetchData(username, accessToken) {
         displayFollowingNotFollowers();
         displayFollowersFollowing();
 
-        $(".userDataDiv").hover(function() {
-            $(this).css("background-color", "grey");
-        }, function() {
-            $(this).css("background-color", "");
-        });
-
     } catch (error) {
         initialView();
         console.error('Error:', error);
@@ -362,6 +356,12 @@ function displayDataDiv(totalCountElement, currentPageElement, itemsPerPage, dis
     }).join('');
 
     paginationDiv.html(paginationHtml);
+
+    $(".userDataDiv").hover(function() {
+        $(this).css("background-color", "grey");
+    }, function() {
+        $(this).css("background-color", "");
+    });
 }
 
 function displayFollowersNotFollowing() {
