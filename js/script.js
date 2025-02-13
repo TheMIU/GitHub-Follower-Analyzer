@@ -29,15 +29,39 @@ $(document).ready(function () {
         $('#github-username').focus();
     });
 
+    $('#btnSortAsc').click(function () {
+        followerNames.sort();
+        followingNames.sort();
+        followersNotFollowing.sort();
+        followingNotFollowers.sort();
+        followersFollowing.sort();
+        currentPage = 1;
+        displayFollowersNotFollowing();
+        displayFollowingNotFollowers();
+        displayFollowersFollowing();
+    });
+
+    $('#btnSortDesc').click(function () {
+        followerNames.sort().reverse();
+        followingNames.sort().reverse();
+        followersNotFollowing.sort().reverse();
+        followingNotFollowers.sort().reverse();
+        followersFollowing.sort().reverse();
+        currentPage = 1;
+        displayFollowersNotFollowing();
+        displayFollowingNotFollowers();
+        displayFollowersFollowing();
+    });
+
     $('#btnDownloadJSON').click(function () {
-        // build up sorted followers data object and save as json
+        // build up followers data object and save as json
         let userData = [
             { "user": githubUsername },
-            { "followers": followerNames.sort() },
-            { "following": followingNames.sort() },
-            { "followersFollowing" : followersFollowing.sort() },
-            { "followingNotFollowers" : followingNotFollowers.sort() },
-            { "followersNotFollowing" : followersNotFollowing.sort() }
+            { "followers": followerNames },
+            { "following": followingNames },
+            { "followersFollowing" : followersFollowing },
+            { "followingNotFollowers" : followingNotFollowers },
+            { "followersNotFollowing" : followersNotFollowing }
         ];
 
         let jsonFollowers = JSON.stringify(userData, null, 2);
