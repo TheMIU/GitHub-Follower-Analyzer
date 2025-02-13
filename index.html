@@ -263,8 +263,20 @@
 
     <!-- Footer -->
     <footer class="fixed-bottom text-center text-secondary" style="background-color: black;">
-        <p class="mt-1" style="font-size: 12px;"> Kasun Miuranga <i class="fa-regular fa-copyright"></i> 2023 </p>
+        <p class="mt-1" style="font-size: 12px;">
+            Developed by 
+            <a href="https://github.com/TheMIU" class="text-secondary text-decoration-none" target="_blank">
+                Kasun Miuranga
+            </a> 
+            &amp; 
+            <a href="https://github.com/0XDE57" class="text-secondary text-decoration-none" target="_blank">
+                Arbitrary Hexcode
+            </a> 
+            <i class="fa-regular fa-copyright"></i> 
+            <span id="year"></span>
+        </p>
     </footer>
+
 
     <!-- allFollowers Modal -->
     <div id="allFollowersModal" class="modal bg-black bg-opacity-75" data-bs-backdrop="static" tabindex="-1">
@@ -327,6 +339,10 @@
     </div>
 
     <!-- Scripts -->
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script src="https://kit.fontawesome.com/be11977956.js" crossorigin="anonymous"></script>
