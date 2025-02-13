@@ -29,12 +29,13 @@ $(document).ready(function () {
         $('#github-username').focus();
     });
 
+
     $('#btnSortAsc').click(function () {
-        followerNames.sort();
-        followingNames.sort();
-        followersNotFollowing.sort();
-        followingNotFollowers.sort();
-        followersFollowing.sort();
+        followerNames.sort(sortIgnoreCase);
+        followingNames.sort(sortIgnoreCase);
+        followersNotFollowing.sort(sortIgnoreCase);
+        followingNotFollowers.sort(sortIgnoreCase);
+        followersFollowing.sort(sortIgnoreCase);
         currentPage = 1;
         displayFollowersNotFollowing();
         displayFollowingNotFollowers();
@@ -42,11 +43,11 @@ $(document).ready(function () {
     });
 
     $('#btnSortDesc').click(function () {
-        followerNames.sort().reverse();
-        followingNames.sort().reverse();
-        followersNotFollowing.sort().reverse();
-        followingNotFollowers.sort().reverse();
-        followersFollowing.sort().reverse();
+        followerNames.sort(sortIgnoreCase).reverse();
+        followingNames.sort(sortIgnoreCase).reverse();
+        followersNotFollowing.sort(sortIgnoreCase).reverse();
+        followingNotFollowers.sort(sortIgnoreCase).reverse();
+        followersFollowing.sort(sortIgnoreCase).reverse();
         currentPage = 1;
         displayFollowersNotFollowing();
         displayFollowingNotFollowers();
@@ -73,6 +74,10 @@ $(document).ready(function () {
         link.click();
     });
 });
+
+function sortIgnoreCase(a, b) {
+  return a.toLowerCase().localeCompare(b.toLowerCase());
+}
 
 ////////// Error //////////
 function showError(error) {
