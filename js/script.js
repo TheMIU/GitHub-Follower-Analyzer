@@ -40,7 +40,7 @@ $(document).ready(function () {
             { "followersNotFollowing" : followersNotFollowing.sort() }
         ];
 
-        let jsonFollowers = JSON.stringify(userData);
+        let jsonFollowers = JSON.stringify(userData, null, 2);
         let blob = new Blob([jsonFollowers]);
         let date = new Date().toLocaleDateString().replaceAll('/', '-');
         let link = document.createElement('a');
