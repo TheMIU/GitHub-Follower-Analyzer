@@ -2,13 +2,11 @@ let githubUsername;
 
 let followerNames = [];
 let followingNames = [];
-let followersFollowingNames = [];
-
-let currentPage = 1;
-
 let followersNotFollowing = [];
 let followingNotFollowers = [];
 let followersFollowing = [];
+
+let currentPage = 1;
 
 $(document).ready(function () {
     $('#github-form').submit(function (event) {
@@ -30,7 +28,83 @@ $(document).ready(function () {
         $('#github-username').val('');
         $('#github-username').focus();
     });
+
+    $('#btnSortIDAsc').click(function () {
+        followerNames.sort(sortID);
+        followingNames.sort(sortID);
+        followersNotFollowing.sort(sortID);
+        followingNotFollowers.sort(sortID);
+        followersFollowing.sort(sortID);
+        currentPage = 1;
+        displayFollowersNotFollowing();
+        displayFollowingNotFollowers();
+        displayFollowersFollowing();
+    });
+
+    $('#btnSortIDDesc').click(function () {
+        followerNames.sort(sortID).reverse();
+        followingNames.sort(sortID).reverse();
+        followersNotFollowing.sort(sortID).reverse();
+        followingNotFollowers.sort(sortID).reverse();
+        followersFollowing.sort(sortID).reverse();
+        currentPage = 1;
+        displayFollowersNotFollowing();
+        displayFollowingNotFollowers();
+        displayFollowersFollowing();
+    });
+
+    $('#btnSortAsc').click(function () {
+        followerNames.sort(sortIgnoreCase);
+        followingNames.sort(sortIgnoreCase);
+        followersNotFollowing.sort(sortIgnoreCase);
+        followingNotFollowers.sort(sortIgnoreCase);
+        followersFollowing.sort(sortIgnoreCase);
+        currentPage = 1;
+        displayFollowersNotFollowing();
+        displayFollowingNotFollowers();
+        displayFollowersFollowing();
+    });
+
+    $('#btnSortDesc').click(function () {
+        followerNames.sort(sortIgnoreCase).reverse();
+        followingNames.sort(sortIgnoreCase).reverse();
+        followersNotFollowing.sort(sortIgnoreCase).reverse();
+        followingNotFollowers.sort(sortIgnoreCase).reverse();
+        followersFollowing.sort(sortIgnoreCase).reverse();
+        currentPage = 1;
+        displayFollowersNotFollowing();
+        displayFollowingNotFollowers();
+        displayFollowersFollowing();
+    });
+
+    $('#btnDownloadJSON').click(function () {
+        // build up followers data object and save as json
+        let userData = [
+            { "user": githubUsername },
+            { "followers": followerNames },
+            { "following": followingNames },
+            { "followersFollowing" : followersFollowing },
+            { "followingNotFollowers" : followingNotFollowers },
+            { "followersNotFollowing" : followersNotFollowing }
+        ];
+
+        let jsonFollowers = JSON.stringify(userData, null, 2);
+        let blob = new Blob([jsonFollowers]);
+        let date = new Date().toLocaleDateString().replaceAll('/', '-');
+        let link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = `${githubUsername}_followers_${date}.txt`;
+        link.click();
+    });
 });
+
+function sortIgnoreCase(a, b) {
+  return a.login.toLowerCase().localeCompare(b.login.toLowerCase());
+}
+
+function sortID(a, b) {
+  return a.id - b.id;
+}
 
 ////////// Error //////////
 function showError(error) {
@@ -125,13 +199,12 @@ async function authenticateAndFetchData(username, accessToken) {
         displayFollowers(followers);
         displayFollowing(followings);
 
-        followerNames = followers.map(follower => follower.login);
-        followingNames = followings.map(following => following.login);
+        followerNames = followers.map(follower => ({login: follower.login, id: follower.id}));
+        followingNames = followings.map(following => ({login: following.login, id: following.id}));
 
-        followersNotFollowing = followerNames.filter(name => !followingNames.includes(name));
-        followingNotFollowers = followingNames.filter(name => !followerNames.includes(name));
-        followersFollowing = followerNames.filter(name => followingNames.includes(name));
-        followersFollowingNames = followersFollowing;
+        followersNotFollowing = followerNames.filter(name => !followingNames.map(x => x.login).includes(name.login));
+        followingNotFollowers = followingNames.filter(name => !followerNames.map(x => x.login).includes(name.login));
+        followersFollowing = followerNames.filter(name => followingNames.map(x => x.login).includes(name.login));
 
         checkEmpty();
         updateSummary();
@@ -139,12 +212,6 @@ async function authenticateAndFetchData(username, accessToken) {
         displayFollowersNotFollowing();
         displayFollowingNotFollowers();
         displayFollowersFollowing();
-
-        $(".userDataDiv").hover(function() {
-            $(this).css("background-color", "grey");
-        }, function() {
-            $(this).css("background-color", "");
-        });
 
     } catch (error) {
         initialView();
@@ -266,14 +333,14 @@ function displayDataDiv(totalCountElement, currentPageElement, itemsPerPage, dis
     $(totalCountElement).text(paginatedArray.length);
 
     const profilesList = displayedData.map(name => {
-        const avatarUrl = `https://github.com/${name}.png`;
-        const githubProfileUrl = `https://github.com/${name}`;
+        const avatarUrl = `https://github.com/${name.login}.png`;
+        const githubProfileUrl = `https://github.com/${name.login}`;
 
         return `
         <a href="${githubProfileUrl}" target="_blank">
             <div class="userDataDiv">
-                <img src="${avatarUrl}" alt="${name}'s Avatar" width="50" height="50">
-                <p>${name}</p>
+                <img src="${avatarUrl}" alt="${name.login}'s Avatar" width="50" height="50">
+                <p>${name.login}</p>
             </div>
         </a>`;
     });
@@ -289,6 +356,12 @@ function displayDataDiv(totalCountElement, currentPageElement, itemsPerPage, dis
     }).join('');
 
     paginationDiv.html(paginationHtml);
+
+    $(".userDataDiv").hover(function() {
+        $(this).css("background-color", "grey");
+    }, function() {
+        $(this).css("background-color", "");
+    });
 }
 
 function displayFollowersNotFollowing() {

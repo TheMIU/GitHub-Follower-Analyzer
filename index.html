@@ -138,6 +138,59 @@
                             </div>
                         </div>
 
+                        <!-- sorting -->
+                        <div class="row" style="padding-top:10px">
+                            <div class="col-lg-6 col-md-6 col-sm-12 m-0 text-center">
+                                <button id="btnSortIDAsc"
+                                    class="btn btn-outline-success btn-sm w-100 d-block bg-transparent">
+                                    <p style="color: chartreuse; margin:0" class="mr-3">
+                                        <i class="fas fa-arrow-up"></i> Sort ID Acsend
+                                    </p>
+                                </button>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-sm-12 m-0 text-center">
+                                <button id="btnSortIDDesc"
+                                    class="btn btn-outline-success btn-sm w-100 d-block bg-transparent">
+                                    <p style="color: chartreuse; margin:0" class="mr-3">
+                                        <i class="fas fa-arrow-down"></i> Sort ID Decsend
+                                    </p>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row" style="padding-top:10px">
+                            <div class="col-lg-6 col-md-6 col-sm-12 m-0 text-center">
+                                <button id="btnSortAsc"
+                                    class="btn btn-outline-success btn-sm w-100 d-block bg-transparent">
+                                    <p style="color: chartreuse; margin:0" class="mr-3">
+                                        <i class="fas fa-arrow-up"></i> Sort Name Acsend
+                                    </p>
+                                </button>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-sm-12 m-0 text-center">
+                                <button id="btnSortDesc"
+                                    class="btn btn-outline-success btn-sm w-100 d-block bg-transparent">
+                                    <p style="color: chartreuse; margin:0" class="mr-3">
+                                        <i class="fas fa-arrow-down"></i> Sort Name Decsend
+                                    </p>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- download as JSON! -->
+                        <div class="row" style="padding-top:10px">
+                            <div class="col-lg-6 col-md-6 col-sm-12 m-0 text-center">
+                                <button id="btnDownloadJSON"
+                                    class="btn btn-outline-success btn-sm w-100 d-block bg-transparent">
+                                    <p style="color: chartreuse; margin:0" class="mr-3">
+                                        <i class="fas fa-download"></i> Download as JSON
+                                    </p>
+                                </button>
+                            </div>
+                        </div>
+
                         <hr class="bg-success">
 
                         <!-- summary -->
@@ -190,23 +243,22 @@
 
                     <!-- followers-following -->
                     <div id="followers-following-div" class="dark-container">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <p style="color: rgb(255, 183, 0);"> <i class="fas fa-address-card"></i>
-                                        Followers Following <span id="followers-following-count"
-                                            style="font-weight: bold; color: rgb(255, 255, 255);"> </span>
-                                    </p>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p style="color: rgb(255, 183, 0);"> <i class="fas fa-address-card"></i>
+                                    Followers Following <span id="followers-following-count"
+                                        style="font-weight: bold; color: rgb(255, 255, 255);"> </span>
+                                </p>
 
-                                    <div id="textFollowersFollowing" style="font-size: smaller;"></div>
+                                <div id="textFollowersFollowing" style="font-size: smaller;"></div>
 
-                                    <div id="followers-following" style="font-size: smaller;"> </div>
+                                <div id="followers-following" style="font-size: smaller;"> </div>
 
-                                </div>
-                                <div class="col-lg-12">
-                                    <div id="pagination-followers-following"></div>
-                                </div>
                             </div>
-
+                            <div class="col-lg-12">
+                                <div id="pagination-followers-following"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
